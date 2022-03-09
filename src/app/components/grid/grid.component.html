@@ -1,0 +1,17 @@
+<table id="grid">
+	<!-- Letters -->
+	<div class="axis x-axis">
+		<div *ngFor="let x of xAxis">{{ x }}</div>
+	</div>
+	<!-- Numbers -->
+	<div class="axis y-axis">
+		<div *ngFor="let y of yAxis">{{ y }}</div>
+	</div>
+	<tr *ngFor="let y of yAxis">
+		<td
+			*ngFor="let x of xAxis"
+			[id]="y + '_' + x"
+			(click)="onTdClick($event)"
+		></td>
+	</tr>
+</table>

@@ -1,0 +1,43 @@
+#grid {
+	border-spacing: 0px;
+	border: solid black;
+	position: relative;
+
+	.axis {
+		position: absolute;
+		display: flex;
+		font-size: 1.5rem;
+		&.x-axis {
+			flex-direction: row;
+			top: -2rem;
+			width: 100%;
+			justify-content: space-around !important;
+		}
+		&.y-axis {
+			flex-direction: column;
+			left: -1.75rem;
+			height: 100%;
+			justify-content: space-around !important;
+		}
+	}
+
+	td {
+		border: 1px solid black;
+		width: 2.25rem;
+		height: 2.25rem;
+		cursor: pointer;
+
+		&.clicked {
+			cursor: auto;
+		}
+	}
+}
+
+.xAxis-container {
+	display: flex;
+	gap: 2rem;
+	margin-left: 1rem;
+	div {
+		font-size: 30px;
+	}
+}
