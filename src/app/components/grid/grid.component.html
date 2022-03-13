@@ -1,17 +1,26 @@
-<table id="grid">
-	<!-- Letters -->
-	<div class="axis x-axis">
-		<div *ngFor="let x of xAxis">{{ x }}</div>
+<div class="container">
+	<div class="number-container">
+		<span *ngFor="let y of xAxis">{{ y }}</span>
 	</div>
-	<!-- Numbers -->
-	<div class="axis y-axis">
-		<div *ngFor="let y of yAxis">{{ y }}</div>
+	<div class="letter-container">
+		<span *ngFor="let x of yAxis">{{ x }}</span>
 	</div>
-	<tr *ngFor="let y of yAxis">
-		<td
-			*ngFor="let x of xAxis"
+	<ng-container *ngFor="let y of yAxis">
+		<button
+			(click)="onCellClick($event)"
+			class="cell"
+			aria-label="clickable"
 			[id]="y + '_' + x"
-			(click)="onTdClick($event)"
-		></td>
-	</tr>
-</table>
+			*ngFor="let x of xAxis"
+		></button>
+	</ng-container>
+</div>
+
+<app-modal [hidden]="!this.isWin">
+	<div class="modal-container">
+		<h1>Congratulations, you won!</h1>
+		<button class="new-game-btn" (click)="startNewGame()">
+			Start new game
+		</button>
+	</div>
+</app-modal>

@@ -1,43 +1,150 @@
-#grid {
-	border-spacing: 0px;
-	border: solid black;
-	position: relative;
+@import '../../../variables.scss';
 
-	.axis {
-		position: absolute;
-		display: flex;
-		font-size: 1.5rem;
-		&.x-axis {
-			flex-direction: row;
-			top: -2rem;
-			width: 100%;
-			justify-content: space-around !important;
-		}
-		&.y-axis {
-			flex-direction: column;
-			left: -1.75rem;
-			height: 100%;
-			justify-content: space-around !important;
-		}
-	}
+@mixin show($bgColor) {
+	background-color: $bgColor;
+	animation: show 300ms ease-in-out;
+}
 
-	td {
-		border: 1px solid black;
-		width: 2.25rem;
-		height: 2.25rem;
-		cursor: pointer;
+.new-game-btn {
+	font-size: 20px;
+	border: none;
+	padding: 0.75em;
+	cursor: pointer;
+	background-color: #2a7eec;
+	color: white;
+	border-radius: 30px;
 
-		&.clicked {
-			cursor: auto;
-		}
+	&:hover,
+	&:focus {
+		background-color: #1153aa;
+		border: none;
+		outline: none;
 	}
 }
 
-.xAxis-container {
+.container {
+	background-color: #ccc;
+	display: grid;
+	grid-template-columns: repeat(10, 7vmin);
+	grid-template-rows: repeat(10, 7vmin);
+	gap: 0.5vmin;
+	padding: 0.5vmin;
+	border-radius: 0.5vmin;
+	position: relative;
+}
+
+.letter-container,
+.number-container {
+	position: absolute;
 	display: flex;
-	gap: 2rem;
-	margin-left: 1rem;
-	div {
-		font-size: 30px;
+	font-size: 20px;
+	color: #fff;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.number-container {
+	width: 100%;
+	top: -7vmin;
+}
+
+.letter-container {
+	height: 100%;
+	flex-direction: column;
+	left: -7vmin;
+}
+
+.cell {
+	background-color: #999;
+	border-radius: 0.5vmin;
+	border: none;
+	cursor: pointer;
+
+	&:hover:not(.clicked):not(.won),
+	&:focus:not(.clicked):not(.won) {
+		background-color: #777;
+		border: none;
+		outline: none;
+	}
+}
+
+.clicked {
+	cursor: auto;
+}
+
+.no-battleship {
+	@include show(rgb(0, 223, 0));
+}
+
+.battleship {
+	@include show(rgb(211, 0, 0));
+}
+
+.won {
+	@include show(rgb(0, 98, 211));
+	cursor: auto;
+}
+
+.modal-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 2em;
+	gap: 2em;
+
+	h1 {
+		text-align: center;
+	}
+}
+
+@keyframes show {
+	0% {
+		opacity: 0.5;
+		transform: scale(0);
+	}
+}
+
+@media screen and (min-width: $M_Phones) {
+	.number-container {
+		top: -6vmin;
+	}
+
+	.letter-container {
+		left: -6vmin;
+	}
+}
+
+@media screen and (min-width: $L_Phones) {
+	.number-container {
+		top: -5.5vmin;
+	}
+
+	.letter-container {
+		left: -5.5vmin;
+	}
+}
+
+@media screen and (min-width: $Tablets) {
+	.number-container {
+		top: -5vmin;
+	}
+
+	.letter-container {
+		left: -5vmin;
+	}
+
+	.letter-container,
+	.number-container {
+		font-size: 25px;
+	}
+}
+
+@media screen and (min-width: $Laptops) {
+	#grid {
+		td {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
 	}
 }

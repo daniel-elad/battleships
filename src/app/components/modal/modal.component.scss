@@ -1,0 +1,21 @@
+.modal-background {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-color: rgba(black, 0.3);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal-content {
+	background-color: white;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 20px;
+	min-width: 200px;
+	min-height: 100px;
+	box-shadow: 0px 0px 20px rgba(black, 0.2);
+}
