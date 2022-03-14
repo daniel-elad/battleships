@@ -68,16 +68,31 @@
 	}
 }
 
+.speak-helper {
+	color: red;
+}
+
 .clicked {
 	cursor: auto;
 }
 
 .no-battleship {
 	@include show(rgb(0, 223, 0));
+
+	&:focus {
+		border: none;
+		outline: none;
+		@include show(rgb(0, 190, 0));
+	}
 }
 
 .battleship {
 	@include show(rgb(211, 0, 0));
+	&:focus {
+		border: none;
+		outline: none;
+		@include show(rgb(190, 0, 0));
+	}
 }
 
 .won {

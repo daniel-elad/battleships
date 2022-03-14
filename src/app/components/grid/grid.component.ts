@@ -39,6 +39,7 @@ export class GridComponent implements OnInit {
 			cell.removeAttribute('disabled');
 			cell.removeAttribute('aria-disabled');
 		});
+		console.log(this.battleshipsIDs);
 	}
 
 	initRandomBattleshipsIDs() {
@@ -64,13 +65,14 @@ export class GridComponent implements OnInit {
 		if (this.battleshipsIDs.includes(cell.id)) {
 			cell.classList.add('battleship');
 			this.bombedBattleships.push(cell.id);
-			cell.setAttribute('aria-label', 'Battleship');
+			cell.setAttribute('aria-label', `${cell.id} Battleship`);
+			this.srSpeak('Battleship', 'assertive');
 		} else {
 			cell.classList.add('no-battleship');
-			cell.setAttribute('aria-label', 'No battleship');
+			cell.setAttribute('aria-label', `${cell.id} No battleship`);
+			this.srSpeak('Not a battleship', 'assertive');
 		}
 		cell.classList.add('clicked');
-		cell.setAttribute('disabled', 'true');
 		cell.setAttribute('aria-disabled', 'true');
 
 		this.checkWin();
@@ -85,5 +87,25 @@ export class GridComponent implements OnInit {
 			cell.setAttribute('disabled', 'true');
 			cell.setAttribute('aria-disabled', 'true');
 		});
+	}
+
+	srSpeak(text: string, priority?: string) {
+		const el = document.createElement('div');
+		el.style.position = 'absolute';
+		el.style.left = '-999999px';
+		el.style.top = '-999999px';
+		const id: string = 'speak-' + Date.now();
+		el.setAttribute('id', id);
+		el.setAttribute('aria-live', priority || 'polite');
+		document.body.appendChild(el);
+
+		window.setTimeout(function () {
+			document.getElementById(id)!.classList.add('speak-helper');
+			document.getElementById(id)!.innerHTML = text;
+		}, 100);
+
+		window.setTimeout(function () {
+			document.body.removeChild(document.getElementById(id)!);
+		}, 1000);
 	}
 }

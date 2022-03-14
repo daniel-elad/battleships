@@ -9,7 +9,7 @@
 		<button
 			(click)="onCellClick($event)"
 			class="cell"
-			aria-label="clickable"
+			[attr.aria-label]="y + x"
 			[id]="y + '_' + x"
 			*ngFor="let x of xAxis"
 		></button>
@@ -17,8 +17,8 @@
 </div>
 
 <app-modal [hidden]="!this.isWin">
-	<div class="modal-container">
-		<h1>Congratulations, you won!</h1>
+	<div class="modal-container" aria-modal="true">
+		<h1 tabindex="1" aria-live="assertive">Congratulations, you won!</h1>
 		<button class="new-game-btn" (click)="startNewGame()">
 			Start new game
 		</button>
