@@ -4,16 +4,18 @@ import {
 	Component,
 	OnInit,
 } from '@angular/core';
-import { nestedInclude, nestedLength } from 'src/app/extensions/nested-include';
+import {
+	nestedInclude,
+	nestedLength,
+} from 'src/app/extensions/nested-extensions';
 import { BattleshipService } from 'src/app/services/battleship.service';
 
 @Component({
 	selector: 'app-grid',
 	templateUrl: './grid.component.html',
 	styleUrls: ['./grid.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GridComponent implements OnInit, AfterViewInit {
+export class GridComponent implements AfterViewInit {
 	xAxis: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 	yAxis: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 	battleships: string[][] = [];
@@ -26,8 +28,6 @@ export class GridComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit(): void {
 		this.startNewGame();
 	}
-
-	ngOnInit(): void {}
 
 	startNewGame(): void {
 		this.isWin = false;
@@ -56,21 +56,6 @@ export class GridComponent implements OnInit, AfterViewInit {
 			cell.setAttribute('aria-label', `${cell.id}`);
 		});
 	}
-
-	// initRandomBattleshipsIDs() {
-	// 	let battleships: string[] = [];
-	// 	for (let i = 0; i < 10; i++) {
-	// 		const x = this.xAxis[Math.floor(Math.random() * this.xAxis.length)];
-	// 		const y = this.yAxis[Math.floor(Math.random() * this.yAxis.length)];
-	// 		const battleshipId = `${y}_${x}`;
-	// 		if (battleships.includes(battleshipId)) {
-	// 			i--;
-	// 			continue;
-	// 		}
-	// 		battleships.push(battleshipId);
-	// 	}
-	// 	return battleships;
-	// }
 
 	createBattleShip() {
 		for (let i = 0; i < 10; i++) {
