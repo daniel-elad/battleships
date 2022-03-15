@@ -16,11 +16,4 @@
 	</ng-container>
 </div>
 
-<app-modal [hidden]="!this.isWin">
-	<div class="modal-container" aria-modal="true">
-		<h1 tabindex="1" aria-live="assertive">Congratulations, you won!</h1>
-		<button class="new-game-btn" (click)="startNewGame()">
-			Start new game
-		</button>
-	</div>
-</app-modal>
+<app-modal *ngIf="this.isWin" (startnewGame)="startNewGame()"></app-modal>

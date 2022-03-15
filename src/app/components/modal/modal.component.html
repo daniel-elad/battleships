@@ -1,5 +1,17 @@
 <div class="modal-background" aria-modal="true">
 	<div class="modal-content">
-		<ng-content></ng-content>
+		<div
+			class="modal-container"
+			id="win-modal-container"
+			aria-modal="true"
+			tabindex="-1"
+		>
+			<h1 #title tabindex="0" id="win-title">
+				Congratulations, you won!
+			</h1>
+			<button class="new-game-btn" (click)="startGame()">
+				Start new game
+			</button>
+		</div>
 	</div>
 </div>

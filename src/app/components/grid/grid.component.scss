@@ -5,23 +5,6 @@
 	animation: show 300ms ease-in-out;
 }
 
-.new-game-btn {
-	font-size: 20px;
-	border: none;
-	padding: 0.75em;
-	cursor: pointer;
-	background-color: #2a7eec;
-	color: white;
-	border-radius: 30px;
-
-	&:hover,
-	&:focus {
-		background-color: #1153aa;
-		border: none;
-		outline: none;
-	}
-}
-
 .container {
 	background-color: #ccc;
 	display: grid;
@@ -60,16 +43,12 @@
 	border: none;
 	cursor: pointer;
 
-	&:hover:not(.clicked):not(.won),
-	&:focus:not(.clicked):not(.won) {
+	&:hover:not(.clicked):not(.won):not(.battleship-light),
+	&:focus:not(.clicked):not(.won):not(.battleship-light) {
 		background-color: #777;
 		border: none;
 		outline: none;
 	}
-}
-
-.speak-helper {
-	color: red;
 }
 
 .clicked {
@@ -86,31 +65,46 @@
 	}
 }
 
+.battleship-light {
+	background-color: #ff6b6b;
+	&:hover,
+	&:focus {
+		background-color: rgb(190, 0, 0);
+		border: none;
+		outline: none;
+	}
+}
+
 .battleship {
 	@include show(rgb(211, 0, 0));
-	&:focus {
+	&:focus,
+	&:hover {
 		border: none;
 		outline: none;
 		@include show(rgb(190, 0, 0));
 	}
 }
 
+.battleship-start {
+	border: 2px solid black;
+	border-right: none;
+}
+.battleship-end {
+	border: 2px solid black;
+	border-left: none;
+}
+.battleship-middle {
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+}
+
+.battleship-1 {
+	border: 2px solid black;
+}
+
 .won {
 	@include show(rgb(0, 98, 211));
 	cursor: auto;
-}
-
-.modal-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	padding: 2em;
-	gap: 2em;
-
-	h1 {
-		text-align: center;
-	}
 }
 
 @keyframes show {
@@ -156,10 +150,4 @@
 }
 
 @media screen and (min-width: $Laptops) {
-	#grid {
-		td {
-			width: 2.5rem;
-			height: 2.5rem;
-		}
-	}
 }
