@@ -6,35 +6,37 @@
 }
 
 .container {
-	background-color: #ccc;
 	display: grid;
-	grid-template-columns: repeat(10, 7vmin);
-	grid-template-rows: repeat(10, 7vmin);
+	gap: 1em;
+	max-width: max-content;
+	height: max-content;
+}
+
+.list {
+	grid-row: 1 / 4;
+	width: 100%;
+	height: 100%;
+	grid-column: 2/12;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+.grid-container {
+	grid-row: 5/15;
+	grid-column: 2 / 12;
+	width: 100%;
+	height: 100%;
+}
+
+.grid-wrapper {
+	display: grid;
+	grid-template-columns: repeat(10, 30px);
+	grid-template-rows: repeat(10, 30px);
 	gap: 0.5vmin;
 	padding: 0.5vmin;
 	border-radius: 0.5vmin;
-	position: relative;
-}
-
-.letter-container,
-.number-container {
-	position: absolute;
-	display: flex;
-	font-size: 20px;
-	color: #fff;
-	justify-content: space-around;
-	align-items: center;
-}
-
-.number-container {
-	width: 100%;
-	top: -7vmin;
-}
-
-.letter-container {
-	height: 100%;
-	flex-direction: column;
-	left: -7vmin;
+	background-color: #ccc;
 }
 
 .cell {
@@ -48,6 +50,52 @@
 		background-color: #777;
 		border: none;
 		outline: none;
+	}
+}
+
+.letter-container,
+.number-container {
+	display: flex;
+	font-size: 20px;
+	color: $foregroundColor;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.number-container {
+	grid-row: 4;
+	grid-column: 2/12;
+}
+
+.letter-container {
+	grid-row: 5/15;
+	grid-column: 1;
+	flex-direction: column;
+}
+
+@media (min-width: $Laptops) {
+	.number-container {
+		grid-row: 1;
+		grid-column: 5/15;
+	}
+
+	.letter-container {
+		grid-row: 2/12;
+		grid-column: 4;
+		flex-direction: column;
+	}
+	.list {
+		grid-row: 2 / 12;
+		grid-column: 1/4;
+		justify-self: center;
+		align-content: center;
+	}
+
+	.grid-container {
+		grid-row: 2/12;
+		grid-column: 5 / 15;
+		width: 100%;
+		height: 100%;
 	}
 }
 
@@ -86,20 +134,20 @@
 }
 
 .battleship-start {
-	border: 2px solid black;
+	border: 2px solid $backgroundColor;
 	border-right: none;
 }
 .battleship-end {
-	border: 2px solid black;
+	border: 2px solid $backgroundColor;
 	border-left: none;
 }
 .battleship-middle {
-	border-top: 2px solid black;
-	border-bottom: 2px solid black;
+	border-top: 2px solid $backgroundColor;
+	border-bottom: 2px solid $backgroundColor;
 }
 
 .battleship-1 {
-	border: 2px solid black;
+	border: 2px solid $backgroundColor;
 }
 
 .won {
@@ -115,6 +163,10 @@
 }
 
 @media screen and (min-width: $M_Phones) {
+	.grid-wrapper {
+		grid-template-columns: repeat(10, 40px);
+		grid-template-rows: repeat(10, 40px);
+	}
 	.number-container {
 		top: -6vmin;
 	}
@@ -147,7 +199,23 @@
 	.number-container {
 		font-size: 25px;
 	}
+
+	.grid-wrapper {
+		grid-template-columns: repeat(10, 50px);
+		grid-template-rows: repeat(10, 50px);
+	}
 }
 
 @media screen and (min-width: $Laptops) {
+	.grid-wrapper {
+		grid-template-columns: repeat(10, 50px);
+		grid-template-rows: repeat(10, 50px);
+	}
+}
+
+@media screen and (min-width: $Desktops) {
+	.grid-wrapper {
+		grid-template-columns: repeat(10, 60px);
+		grid-template-rows: repeat(10, 60px);
+	}
 }

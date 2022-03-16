@@ -1,14 +1,16 @@
 import {
 	AfterViewInit,
-	ChangeDetectionStrategy,
+	ChangeDetectorRef,
 	Component,
-	OnInit,
+	ElementRef,
+	ViewChild,
 } from '@angular/core';
 import {
 	nestedInclude,
 	nestedLength,
 } from 'src/app/extensions/nested-extensions';
 import { BattleshipService } from 'src/app/services/battleship.service';
+import { BattleshipListComponent } from '../battleship-list/battleship-list.component';
 
 @Component({
 	selector: 'app-grid',
@@ -22,23 +24,42 @@ export class GridComponent implements AfterViewInit {
 	bombedBattleships: string[] = [];
 	isWin: boolean = false;
 	cells: Element[] = [];
+	@ViewChild('container') container!: ElementRef;
+	smallBattleships: number;
+	mediumBattleships: number;
+	largeBattleships: number;
+	@ViewChild('list', { read: ElementRef }) list!: ElementRef;
 
-	constructor(private battleshipService: BattleshipService) {}
+	constructor(
+		private battleshipService: BattleshipService,
+		private cdRef: ChangeDetectorRef
+	) {
+		this.smallBattleships = 0;
+		this.mediumBattleships = 0;
+		this.largeBattleships = 0;
+	}
 
 	ngAfterViewInit(): void {
 		this.startNewGame();
+		this.cdRef.detectChanges();
 	}
 
 	startNewGame(): void {
 		this.isWin = false;
-		this.cells = Array.from(document.querySelectorAll('.container button'));
+		this.cells = (
+			Array.from(this.container.nativeElement.children) as Element[]
+		).filter((node) => node.nodeName === 'BUTTON');
 		this.resetCells();
 		this.createBattleShip();
+		// this.list.nativeElement.children[0].children[0]
+		this.list.nativeElement.firstChild.firstChild.firstChild.focus();
 	}
-
 	resetCells() {
 		this.battleships = [];
 		this.bombedBattleships = [];
+		this.smallBattleships = 0;
+		this.mediumBattleships = 0;
+		this.largeBattleships = 0;
 		this.cells.forEach((cell) => {
 			cell.classList.remove(
 				'battleship',
@@ -60,11 +81,25 @@ export class GridComponent implements AfterViewInit {
 	createBattleShip() {
 		for (let i = 0; i < 10; i++) {
 			let battleship = this.battleshipService.createBattleship(
-				this.getEmptyCells()
+				this.getEmptyCells(),
+				this.container.nativeElement.children
 			);
 			if (!battleship) {
 				i--;
 				continue;
+			}
+			switch (battleship.length) {
+				case 1:
+					this.smallBattleships++;
+					break;
+				case 2:
+					this.mediumBattleships++;
+					break;
+				case 3:
+					this.largeBattleships++;
+					break;
+				default:
+					break;
 			}
 			this.battleships.push(battleship);
 		}
@@ -75,7 +110,7 @@ export class GridComponent implements AfterViewInit {
 		this.battleships.forEach((battleship) => {
 			battleship.forEach((id) => {
 				var index = emptyCells.indexOf(
-					document.getElementById(id) as HTMLElement
+					this.container.nativeElement.children[id]
 				);
 				if (index !== -1) {
 					emptyCells.splice(index, 1);
@@ -98,7 +133,7 @@ export class GridComponent implements AfterViewInit {
 		}
 		cell.classList.add('clicked');
 		cell.setAttribute('aria-disabled', 'true');
-
+		this.checkBombedShip(cell.id);
 		this.checkWin();
 	}
 
@@ -113,9 +148,35 @@ export class GridComponent implements AfterViewInit {
 			cell.setAttribute('disabled', 'true');
 			cell.setAttribute('aria-disabled', 'true');
 		});
-		setTimeout(() => {
-			document.getElementById('win-title')?.focus();
-		});
 		return true;
+	}
+
+	checkBombedShip(battleshipId: string) {
+		const battleshipIndex = this.battleships.findIndex((battleship) =>
+			battleship.includes(battleshipId)
+		);
+		const battleshipCell = this.cells.find(
+			(cell) => (cell.id = battleshipId)
+		);
+		const battleshipSize = this.battleships[battleshipIndex].length;
+		if (
+			this.battleships[battleshipIndex].every((id) =>
+				this.bombedBattleships.includes(id)
+			)
+		) {
+			switch (battleshipSize) {
+				case 1:
+					this.smallBattleships--;
+					break;
+				case 2:
+					this.mediumBattleships--;
+					break;
+				case 3:
+					this.largeBattleships--;
+					break;
+				default:
+					break;
+			}
+		}
 	}
 }

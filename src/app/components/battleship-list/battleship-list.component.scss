@@ -1,0 +1,96 @@
+@import '../../../variables';
+
+.list-container {
+	height: 100%;
+	width: 100%;
+	background-color: $foregroundColor;
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0px;
+}
+
+.list-wrapper {
+	box-sizing: border-box;
+	padding: 20px 0px;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	gap: 20px;
+}
+
+.list {
+	flex: 1;
+	list-style: none;
+	margin: 0;
+	padding: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 2em;
+}
+
+.battleship-icon {
+	width: 60px;
+}
+
+.battleship-title {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	color: $backgroundColor;
+}
+
+.list-item-container,
+.battleship-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.list-item-container {
+	flex-direction: column;
+}
+
+.battleship-container {
+	flex-wrap: wrap;
+	max-width: 250px;
+}
+
+.list-title {
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	color: $backgroundColor;
+	font-size: larger;
+	text-decoration: underline;
+}
+
+@media (min-width: $Tablets) {
+	.battleship-icon {
+		width: 70px;
+	}
+	.battleship-title {
+		font-size: 20px;
+	}
+	.list-title {
+		font-size: 25px;
+	}
+	.battleship-container {
+		max-width: 350px;
+	}
+}
+
+@media (min-width: $Laptops) {
+	.list-container {
+		width: 250px;
+	}
+	.list {
+		justify-content: space-around;
+	}
+	.battleship-container {
+		max-width: 200px;
+	}
+}

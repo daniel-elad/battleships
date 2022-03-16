@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
 export class BattleshipService {
 	constructor() {}
 
-	paintBattleship(battleship: string[]) {
+	paintBattleship(battleship: string[], cells: any) {
 		battleship.forEach((battleshipID, i) => {
-			const element = document.getElementById(battleshipID);
+			const element = cells[battleshipID];
 			element?.classList.add('battleship-light');
 			if (battleship.length === 1) {
 				element?.classList.add('battleship-1');
@@ -28,7 +28,7 @@ export class BattleshipService {
 		});
 	}
 
-	createBattleship(emptyCells: string[]) {
+	createBattleship(emptyCells: string[], cells: Element[]) {
 		const size = Math.ceil(Math.random() * 3);
 		const randomCell =
 			emptyCells[Math.floor(Math.random() * emptyCells.length)].split(
@@ -50,7 +50,7 @@ export class BattleshipService {
 				battleship.push(battleshipId);
 			}
 			battleship.sort();
-			this.paintBattleship(battleship);
+			this.paintBattleship(battleship, cells);
 			return battleship;
 		}
 		if (!(randomCellSplitted['number'] - size < 0)) {
@@ -65,7 +65,7 @@ export class BattleshipService {
 				battleship.push(battleshipId);
 			}
 			battleship.sort();
-			this.paintBattleship(battleship);
+			this.paintBattleship(battleship, cells);
 			return battleship;
 		}
 		return null;

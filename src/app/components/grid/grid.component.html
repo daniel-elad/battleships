@@ -1,19 +1,29 @@
 <div class="container">
+	<app-battleship-list
+		#list
+		class="list"
+		[smallBattleships]="smallBattleships"
+		[mediumBattleships]="mediumBattleships"
+		[largeBattleships]="largeBattleships"
+	></app-battleship-list>
 	<div class="number-container">
 		<span *ngFor="let y of xAxis">{{ y }}</span>
 	</div>
 	<div class="letter-container">
 		<span *ngFor="let x of yAxis">{{ x }}</span>
 	</div>
-	<ng-container *ngFor="let y of yAxis">
-		<button
-			(click)="onCellClick($event)"
-			class="cell"
-			[attr.aria-label]="y + x"
-			[id]="y + '_' + x"
-			*ngFor="let x of xAxis"
-		></button>
-	</ng-container>
+	<div class="grid-container">
+		<div class="grid-wrapper" #container>
+			<ng-container *ngFor="let y of yAxis">
+				<button
+					(click)="onCellClick($event)"
+					class="cell"
+					[attr.aria-label]="y + x"
+					[id]="y + '_' + x"
+					*ngFor="let x of xAxis"
+				></button>
+			</ng-container>
+		</div>
+	</div>
 </div>
-
 <app-modal *ngIf="this.isWin" (startnewGame)="startNewGame()"></app-modal>
