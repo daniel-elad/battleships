@@ -66,10 +66,13 @@ export class GridComponent implements AfterViewInit {
 				'no-battleship',
 				'clicked',
 				'won',
-				'battleship-start',
-				'battleship-end',
-				'battleship-middle',
-				'battleship-1'
+				'battleship-horizontal-start',
+				'battleship-horizontal-end',
+				'battleship-vertical-start',
+				'battleship-vertical-end',
+				'battleship-horizontal-middle',
+				'battleship-vertical-middle',
+				'battleship-full'
 			);
 			cell.removeAttribute('disabled');
 			cell.removeAttribute('aria-disabled');
