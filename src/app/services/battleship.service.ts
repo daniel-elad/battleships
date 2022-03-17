@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { gridLetters } from '../extensions/grid-helper';
 
 @Injectable({
 	providedIn: 'root',
@@ -6,30 +7,57 @@ import { Injectable } from '@angular/core';
 export class BattleshipService {
 	constructor() {}
 
-	paintBattleship(battleship: string[], cells: any) {
+	private letters: string[] = gridLetters;
+
+	paintBattleship(battleship: string[], cells: any, isHotizontal: Boolean) {
 		battleship.forEach((battleshipID, i) => {
 			const element = cells[battleshipID];
 			element?.classList.add('battleship-light');
-			if (battleship.length === 1) {
-				element?.classList.add('battleship-1');
-			}
-			if (battleship.length === 2) {
-				i === 0
-					? element?.classList.add('battleship-start')
-					: element?.classList.add('battleship-end');
-			}
-			if (battleship.length === 3) {
-				i === 0
-					? element?.classList.add('battleship-start')
-					: i === 1
-					? element?.classList.add('battleship-middle')
-					: element?.classList.add('battleship-end');
+			switch (battleship.length) {
+				case 1:
+					element?.classList.add('battleship-full');
+					break;
+				case 2:
+					isHotizontal
+						? i === 0
+							? element?.classList.add(
+									'battleship-horizontal-start'
+							  )
+							: element?.classList.add(
+									'battleship-horizontal-end'
+							  )
+						: i === 0
+						? element?.classList.add('battleship-vertical-start')
+						: element?.classList.add('battleship-vertical-end');
+					break;
+				case 3:
+					isHotizontal
+						? i === 0
+							? element?.classList.add(
+									'battleship-horizontal-start'
+							  )
+							: i === 1
+							? element?.classList.add(
+									'battleship-horizontal-middle'
+							  )
+							: element?.classList.add(
+									'battleship-horizontal-end'
+							  )
+						: i === 0
+						? element?.classList.add('battleship-vertical-start')
+						: i === 1
+						? element?.classList.add('battleship-vertical-middle')
+						: element?.classList.add('battleship-vertical-end');
+					break;
+				default:
+					break;
 			}
 		});
 	}
 
 	createBattleship(emptyCells: string[], cells: Element[]) {
 		const size = Math.ceil(Math.random() * 3);
+		const isHotizontal: Boolean = !!Math.round(Math.random());
 		const randomCell =
 			emptyCells[Math.floor(Math.random() * emptyCells.length)].split(
 				'_'
@@ -38,36 +66,98 @@ export class BattleshipService {
 			letter: randomCell[0],
 			number: Number.parseInt(randomCell[1]),
 		};
-		if (!(randomCellSplitted['number'] + size > 9)) {
-			let battleship = [];
-			for (let i = 0; i < size; i++) {
-				const battleshipId = `${randomCellSplitted['letter']}_${
-					randomCellSplitted['number'] + i
-				}`;
-				if (!emptyCells.includes(battleshipId)) {
-					return null;
-				}
-				battleship.push(battleshipId);
+		if (isHotizontal) {
+			if (!(randomCellSplitted['number'] + size > 9)) {
+				return this.CreateHorizontal(
+					size,
+					randomCellSplitted['number'],
+					randomCellSplitted['letter'],
+					emptyCells,
+					cells,
+					true
+				);
 			}
-			battleship.sort();
-			this.paintBattleship(battleship, cells);
-			return battleship;
-		}
-		if (!(randomCellSplitted['number'] - size < 0)) {
-			let battleship = [];
-			for (let i = 0; i < size; i++) {
-				const battleshipId = `${randomCellSplitted['letter']}_${
-					randomCellSplitted['number'] - i
-				}`;
-				if (!emptyCells.includes(battleshipId)) {
-					return null;
-				}
-				battleship.push(battleshipId);
+			if (!(randomCellSplitted['number'] - size < 0)) {
+				return this.CreateHorizontal(
+					size,
+					randomCellSplitted['number'],
+					randomCellSplitted['letter'],
+					emptyCells,
+					cells,
+					false
+				);
 			}
-			battleship.sort();
-			this.paintBattleship(battleship, cells);
-			return battleship;
+		} else {
+			const letterIndex = this.letters.indexOf(
+				randomCellSplitted['letter']
+			);
+			if (!(letterIndex + size > 9)) {
+				return this.CreateVertical(
+					size,
+					randomCellSplitted['number'],
+					letterIndex,
+					emptyCells,
+					cells,
+					true
+				);
+			}
+			if (!(letterIndex - size < 0)) {
+				return this.CreateVertical(
+					size,
+					randomCellSplitted['number'],
+					letterIndex,
+					emptyCells,
+					cells,
+					false
+				);
+			}
 		}
 		return null;
+	}
+
+	private CreateHorizontal(
+		size: number,
+		number: number,
+		letter: string,
+		emptyCells: string[],
+		cells: Element[],
+		isToRight: Boolean
+	) {
+		let battleship = [];
+		for (let i = 0; i < size; i++) {
+			const battleshipId = isToRight
+				? `${letter}_${number + i}`
+				: `${letter}_${number - i}`;
+			if (!emptyCells.includes(battleshipId)) {
+				return null;
+			}
+			battleship.push(battleshipId);
+		}
+		battleship.sort();
+		this.paintBattleship(battleship, cells, true);
+		return battleship;
+	}
+
+	private CreateVertical(
+		size: number,
+		number: number,
+		letterIndex: number,
+		emptyCells: string[],
+		cells: Element[],
+		isToTop: Boolean
+	) {
+		let battleship = [];
+		for (let i = 0; i < size; i++) {
+			const battleshipId = isToTop
+				? `${this.letters[letterIndex + i]}_${number}`
+				: `${this.letters[letterIndex - i]}_${number}`;
+			if (!emptyCells.includes(battleshipId)) {
+				return null;
+			}
+			battleship.push(battleshipId);
+		}
+		battleship.sort();
+		this.paintBattleship(battleship, cells, false);
+		return battleship;
 	}
 }

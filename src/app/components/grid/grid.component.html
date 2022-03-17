@@ -5,6 +5,7 @@
 		[smallBattleships]="smallBattleships"
 		[mediumBattleships]="mediumBattleships"
 		[largeBattleships]="largeBattleships"
+		[isWin]="isWin"
 	></app-battleship-list>
 	<div class="number-container">
 		<span *ngFor="let y of xAxis">{{ y }}</span>
@@ -16,11 +17,11 @@
 		<div class="grid-wrapper" #container>
 			<ng-container *ngFor="let y of yAxis">
 				<button
+					*ngFor="let x of xAxis"
 					(click)="onCellClick($event)"
 					class="cell"
 					[attr.aria-label]="y + x"
 					[id]="y + '_' + x"
-					*ngFor="let x of xAxis"
 				></button>
 			</ng-container>
 		</div>

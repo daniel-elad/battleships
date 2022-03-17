@@ -5,12 +5,12 @@ import {
 	ElementRef,
 	ViewChild,
 } from '@angular/core';
+import { gridLetters, gridNumbers } from 'src/app/extensions/grid-helper';
 import {
 	nestedInclude,
 	nestedLength,
 } from 'src/app/extensions/nested-extensions';
 import { BattleshipService } from 'src/app/services/battleship.service';
-import { BattleshipListComponent } from '../battleship-list/battleship-list.component';
 
 @Component({
 	selector: 'app-grid',
@@ -18,8 +18,8 @@ import { BattleshipListComponent } from '../battleship-list/battleship-list.comp
 	styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent implements AfterViewInit {
-	xAxis: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-	yAxis: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+	xAxis: string[] = gridNumbers;
+	yAxis: string[] = gridLetters;
 	battleships: string[][] = [];
 	bombedBattleships: string[] = [];
 	isWin: boolean = false;
@@ -51,7 +51,6 @@ export class GridComponent implements AfterViewInit {
 		).filter((node) => node.nodeName === 'BUTTON');
 		this.resetCells();
 		this.createBattleShip();
-		// this.list.nativeElement.children[0].children[0]
 		this.list.nativeElement.firstChild.firstChild.firstChild.focus();
 	}
 	resetCells() {
@@ -127,13 +126,13 @@ export class GridComponent implements AfterViewInit {
 			cell.classList.add('battleship');
 			this.bombedBattleships.push(cell.id);
 			cell.setAttribute('aria-label', `${cell.id} Battleship`);
+			this.checkBombedShip(cell.id);
 		} else {
 			cell.classList.add('no-battleship');
 			cell.setAttribute('aria-label', `${cell.id} No battleship`);
 		}
 		cell.classList.add('clicked');
 		cell.setAttribute('aria-disabled', 'true');
-		this.checkBombedShip(cell.id);
 		this.checkWin();
 	}
 

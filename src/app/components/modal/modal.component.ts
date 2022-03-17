@@ -15,11 +15,11 @@ import {
 })
 export class ModalComponent implements OnInit, AfterViewInit {
 	@Output() startnewGame = new EventEmitter();
-	@ViewChild('winTitle') winTitle!: ElementRef;
+	@ViewChild('winModal') winModal!: ElementRef;
 
 	constructor() {}
 	ngAfterViewInit(): void {
-		this.winTitle.nativeElement.focus();
+		this.winModal.nativeElement.focus();
 	}
 
 	ngOnInit(): void {}

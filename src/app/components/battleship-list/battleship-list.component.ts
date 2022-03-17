@@ -15,16 +15,17 @@ export class BattleshipListComponent implements OnInit, AfterViewInit {
 	@Input() smallBattleships!: Number;
 	@Input() mediumBattleships!: Number;
 	@Input() largeBattleships!: Number;
+	@Input() isWin!: Boolean;
 	@ViewChild('listTitle') listTitle!: ElementRef;
+
+	battleshipIconSrc: string = 'assets/battleship.svg';
+	battleshipIconAlt: string = 'Battleship icon';
+
 	constructor() {}
 
 	ngOnInit(): void {}
 
 	ngAfterViewInit() {
 		this.listTitle.nativeElement.focus();
-	}
-
-	getScreenWidth(): string {
-		return window.screen.width.toString();
 	}
 }

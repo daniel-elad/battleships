@@ -1,26 +1,27 @@
 <div class="list-container">
-	<div class="list-wrapper">
-		<h2 class="list-title" tabindex="0" #listTitle>
-			Remaining Battleships
-		</h2>
+	<div class="list-wrapper" [attr.tabindex]="isWin ? '-1' : '0'">
+		<h2 class="list-title" #listTitle>Remaining Battleships</h2>
 		<div class="list">
 			<div>
 				<div class="list-item-container">
-					<h4
+					<p
 						class="battleship-title"
-						tabindex="0"
-						[attr.aria-label]="
-							this.smallBattleships + ' Small battleship remain'
-						"
-						aria-live="polite"
+						aria-live="assertive"
+						role="status"
 					>
-						Small battleships
-					</h4>
+						{{
+							this.smallBattleships > 0
+								? this.smallBattleships +
+								  ' Small battleships remaining'
+								: 'No small battleship remaining'
+						}}
+					</p>
 					<div class="battleship-container">
 						<img
 							class="battleship-icon"
-							src="../../../assets/battleship.svg"
-							alt="battleship-icon"
+							[src]="battleshipIconSrc"
+							[alt]="battleshipIconAlt"
+							aria-hidden="true"
 							*ngFor="
 								let smallBattleship of [].constructor(
 									smallBattleships
@@ -32,21 +33,24 @@
 			</div>
 			<div>
 				<div class="list-item-container">
-					<h4
+					<p
 						class="battleship-title"
-						tabindex="0"
-						[attr.aria-label]="
-							this.mediumBattleships + ' Medium battleship remain'
-						"
-						aria-live="polite"
+						aria-live="assertive"
+						role="status"
 					>
-						Medium battleships
-					</h4>
+						{{
+							this.mediumBattleships > 0
+								? this.mediumBattleships +
+								  ' Medium battleships remaining'
+								: 'No medium battleship remaining'
+						}}
+					</p>
 					<div class="battleship-container">
 						<img
+							aria-hidden="true"
 							class="battleship-icon"
-							src="../../../assets/battleship.svg"
-							alt="battleship-icon"
+							[src]="battleshipIconSrc"
+							[alt]="battleshipIconAlt"
 							*ngFor="
 								let mediumBattleship of [].constructor(
 									mediumBattleships
@@ -58,26 +62,29 @@
 			</div>
 			<div>
 				<div class="list-item-container">
-					<h4
+					<p
 						class="battleship-title"
-						tabindex="0"
-						[attr.aria-label]="
-							this.largeBattleships + ' Large battleship remain'
-						"
-						aria-live="polite"
+						aria-live="assertive"
+						role="status"
 					>
-						Large battleships
-					</h4>
+						{{
+							this.largeBattleships > 0
+								? this.largeBattleships +
+								  ' Large battleships remaining'
+								: 'No large battleship remaining'
+						}}
+					</p>
 					<div class="battleship-container">
 						<img
 							class="battleship-icon"
-							src="../../../assets/battleship.svg"
-							alt="battleship-icon"
+							[src]="battleshipIconSrc"
+							[alt]="battleshipIconAlt"
 							*ngFor="
 								let largeBattleship of [].constructor(
 									largeBattleships
 								)
 							"
+							aria-hidden="true"
 						/>
 					</div>
 				</div>

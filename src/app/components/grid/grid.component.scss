@@ -133,20 +133,33 @@
 	}
 }
 
-.battleship-start {
+.battleship-horizontal-start {
 	border: 2px solid $backgroundColor;
 	border-right: none;
 }
-.battleship-end {
+.battleship-horizontal-end {
 	border: 2px solid $backgroundColor;
 	border-left: none;
 }
-.battleship-middle {
+.battleship-horizontal-middle {
 	border-top: 2px solid $backgroundColor;
 	border-bottom: 2px solid $backgroundColor;
 }
 
-.battleship-1 {
+.battleship-vertical-start {
+	border: 2px solid $backgroundColor;
+	border-bottom: none;
+}
+.battleship-vertical-end {
+	border: 2px solid $backgroundColor;
+	border-top: none;
+}
+.battleship-vertical-middle {
+	border-left: 2px solid $backgroundColor;
+	border-right: 2px solid $backgroundColor;
+}
+
+.battleship-full {
 	border: 2px solid $backgroundColor;
 }
 
