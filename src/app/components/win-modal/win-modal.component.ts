@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 
 @Component({
-	selector: 'app-modal',
-	templateUrl: './modal.component.html',
-	styleUrls: ['./modal.component.scss'],
+	selector: 'app-win-modal',
+	templateUrl: './win-modal.component.html',
+	styleUrls: ['./win-modal.component.scss'],
 })
 export class ModalComponent implements OnInit, AfterViewInit {
 	@Output() startnewGame = new EventEmitter();

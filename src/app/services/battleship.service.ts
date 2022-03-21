@@ -156,6 +156,9 @@ export class BattleshipService {
 			}
 			battleship.push(battleshipId);
 		}
+		battleship.sort((a: string, b: string) => {
+			return a.length - b.length;
+		});
 		battleship.sort();
 		this.paintBattleship(battleship, cells, false);
 		return battleship;

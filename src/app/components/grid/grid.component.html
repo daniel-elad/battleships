@@ -1,4 +1,4 @@
-<div class="container">
+<div class="flex-container">
 	<app-battleship-list
 		#list
 		class="list"
@@ -7,24 +7,35 @@
 		[largeBattleships]="largeBattleships"
 		[isWin]="isWin"
 	></app-battleship-list>
-	<div class="number-container">
-		<span *ngFor="let y of xAxis">{{ y }}</span>
-	</div>
-	<div class="letter-container">
-		<span *ngFor="let x of yAxis">{{ x }}</span>
-	</div>
-	<div class="grid-container">
-		<div class="grid-wrapper" #container>
-			<ng-container *ngFor="let y of yAxis">
-				<button
-					*ngFor="let x of xAxis"
-					(click)="onCellClick($event)"
-					class="cell"
-					[attr.aria-label]="y + x"
-					[id]="y + '_' + x"
-				></button>
-			</ng-container>
+	<div class="container a">
+		<div class="number-container">
+			<span *ngFor="let x of xAxis">{{ x }}</span>
+		</div>
+		<div class="letter-container">
+			<span *ngFor="let y of yAxis">{{ y }}</span>
+		</div>
+		<div class="grid-container">
+			<div class="grid-wrapper" #container>
+				<ng-container *ngFor="let y of yAxis">
+					<button
+						*ngFor="let x of xAxis"
+						(click)="onCellClick($event)"
+						class="cell"
+						[attr.aria-label]="y + x"
+						[id]="y + '_' + x"
+					></button>
+				</ng-container>
+			</div>
 		</div>
 	</div>
 </div>
-<app-modal *ngIf="this.isWin" (startnewGame)="startNewGame()"></app-modal>
+<app-new-game-modal
+	(startNewGame)="onStartNewGame($event)"
+	(rowsChange)="configGrid($event)"
+	#newGameModal
+	tabindex="-1"
+></app-new-game-modal>
+<app-win-modal
+	*ngIf="this.isWin"
+	(startnewGame)="openStartModal()"
+></app-win-modal>

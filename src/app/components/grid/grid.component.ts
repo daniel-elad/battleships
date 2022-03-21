@@ -10,6 +10,7 @@ import {
 	nestedInclude,
 	nestedLength,
 } from 'src/app/extensions/nested-extensions';
+import { NewGame } from 'src/app/models/NewGame';
 import { BattleshipService } from 'src/app/services/battleship.service';
 
 @Component({
@@ -18,17 +19,18 @@ import { BattleshipService } from 'src/app/services/battleship.service';
 	styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent implements AfterViewInit {
-	xAxis: string[] = gridNumbers;
-	yAxis: string[] = gridLetters;
 	battleships: string[][] = [];
 	bombedBattleships: string[] = [];
 	isWin: boolean = false;
 	cells: Element[] = [];
-	@ViewChild('container') container!: ElementRef;
 	smallBattleships: number;
 	mediumBattleships: number;
 	largeBattleships: number;
+	@ViewChild('container') container!: ElementRef;
 	@ViewChild('list', { read: ElementRef }) list!: ElementRef;
+	@ViewChild('newGameModal', { read: ElementRef }) newGameModal!: ElementRef;
+	xAxis: string[] = gridNumbers.slice(0, 10);
+	yAxis: string[] = gridLetters.slice(0, 10);
 
 	constructor(
 		private battleshipService: BattleshipService,
@@ -40,19 +42,24 @@ export class GridComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		this.startNewGame();
+		document.documentElement.style.setProperty('--columns', '10');
+		document.documentElement.style.setProperty('--rows', '10');
 		this.cdRef.detectChanges();
+		console.log(this.newGameModal.nativeElement.firstChild as HTMLElement);
 	}
 
-	startNewGame(): void {
+	startNewGame(data: NewGame): void {
 		this.isWin = false;
-		this.cells = (
-			Array.from(this.container.nativeElement.children) as Element[]
-		).filter((node) => node.nodeName === 'BUTTON');
+		this.cells = this.initCells();
 		this.resetCells();
-		this.createBattleShip();
+		this.createBattleShip(data.battleships);
 		this.list.nativeElement.firstChild.firstChild.firstChild.focus();
 	}
+
+	initCells() {
+		return Array.from(this.container.nativeElement.children) as Element[];
+	}
+
 	resetCells() {
 		this.battleships = [];
 		this.bombedBattleships = [];
@@ -80,8 +87,8 @@ export class GridComponent implements AfterViewInit {
 		});
 	}
 
-	createBattleShip() {
-		for (let i = 0; i < 10; i++) {
+	createBattleShip(battleshipsNum: number) {
+		for (let i = 0; i < battleshipsNum; i++) {
 			let battleship = this.battleshipService.createBattleship(
 				this.getEmptyCells(),
 				this.container.nativeElement.children
@@ -108,7 +115,9 @@ export class GridComponent implements AfterViewInit {
 	}
 
 	getEmptyCells() {
-		const emptyCells: HTMLElement[] = [...this.cells] as HTMLElement[];
+		const emptyCells: HTMLElement[] = Array.from(
+			this.container.nativeElement.children
+		);
 		this.battleships.forEach((battleship) => {
 			battleship.forEach((id) => {
 				var index = emptyCells.indexOf(
@@ -157,9 +166,6 @@ export class GridComponent implements AfterViewInit {
 		const battleshipIndex = this.battleships.findIndex((battleship) =>
 			battleship.includes(battleshipId)
 		);
-		const battleshipCell = this.cells.find(
-			(cell) => (cell.id = battleshipId)
-		);
 		const battleshipSize = this.battleships[battleshipIndex].length;
 		if (
 			this.battleships[battleshipIndex].every((id) =>
@@ -180,5 +186,37 @@ export class GridComponent implements AfterViewInit {
 					break;
 			}
 		}
+	}
+
+	onStartNewGame(formInput: NewGame) {
+		this.startNewGame(formInput);
+		this.newGameModal.nativeElement.style.display = 'none';
+	}
+
+	configGrid(grid: NewGame) {
+		if (grid.rows < 2) {
+			this.yAxis = [...gridLetters].slice(0, 2);
+			this.container.nativeElement.style.setProperty('--rows', '2');
+		} else {
+			this.yAxis = [...gridLetters].slice(0, grid.rows);
+			this.container.nativeElement.style.setProperty('--rows', grid.rows);
+		}
+		if (grid.columns < 2) {
+			this.xAxis = [...gridNumbers].slice(0, 2);
+			document.documentElement.style.setProperty('--columns', '2');
+		} else {
+			this.xAxis = [...gridNumbers].slice(0, grid.columns);
+			document.documentElement.style.setProperty(
+				'--columns',
+				grid.columns.toString()
+			);
+		}
+	}
+
+	openStartModal() {
+		this.isWin = false;
+		this.newGameModal.nativeElement.style.display = 'block';
+		this.newGameModal.nativeElement.focus();
+		this.resetCells();
 	}
 }

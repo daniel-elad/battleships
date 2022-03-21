@@ -1,0 +1,100 @@
+.modal-background {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(black, 0.3);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal-content {
+	background-color: white;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 20px;
+	min-width: 200px;
+	min-height: 100px;
+	box-shadow: 0px 0px 20px rgba(black, 0.2);
+}
+
+.modal-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 2em;
+	gap: 2em;
+
+	h1 {
+		text-align: center;
+	}
+}
+
+.new-game-btn {
+	font-size: 20px;
+	border: none;
+	padding: 0.75em;
+	cursor: pointer;
+	background-color: #2a7eec;
+	color: white;
+	border-radius: 30px;
+
+	&:disabled,
+	&:disabled:hover,
+	&:disabled:focus {
+		background-color: grey;
+		cursor: default;
+	}
+
+	&:hover,
+	&:focus {
+		background-color: #1153aa;
+		border: none;
+		outline: none;
+	}
+}
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+
+.input-error {
+	color: red;
+	font-size: 15px;
+}
+
+.text-red {
+	color: red;
+}
+
+.form-control {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	justify-content: space-between;
+	align-items: center;
+
+	& label {
+		font-size: 25px;
+		font-weight: bold;
+	}
+	& input {
+		padding: 0;
+		margin: 0;
+		height: 50px;
+		width: 50px;
+		font-size: 25px;
+		text-align: center;
+		-moz-appearance: textfield;
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	}
+}

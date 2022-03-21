@@ -5,25 +5,54 @@
 	animation: show 300ms ease-in-out;
 }
 
+:root {
+	--columns: '10';
+	--rows: '10';
+}
+
 .container {
 	display: grid;
-	gap: 1em;
-	max-width: max-content;
-	height: max-content;
+	padding: 1em;
+	width: 100%;
+	height: 100%;
+	max-width: 375px;
+	max-height: 375px;
+	overflow: scroll;
+}
+
+.container::-webkit-scrollbar-track {
+	border: 1px solid #000;
+
+	background-color: #404040;
+	border-radius: 10px;
+}
+
+.container::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-corner {
+	display: none;
+}
+
+.container::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: #737272;
+	border: 1px solid #000;
 }
 
 .list {
-	grid-row: 1 / 4;
-	width: 100%;
-	height: 100%;
-	grid-column: 2/12;
+	width: 75%;
 	display: flex;
 	justify-content: center;
 	align-content: center;
 }
 
 .grid-container {
-	grid-row: 5/15;
+	grid-row: 2/12;
 	grid-column: 2 / 12;
 	width: 100%;
 	height: 100%;
@@ -31,12 +60,13 @@
 
 .grid-wrapper {
 	display: grid;
-	grid-template-columns: repeat(10, 30px);
-	grid-template-rows: repeat(10, 30px);
+	grid-template-columns: repeat(var(--columns), 30px);
+	grid-template-rows: repeat(var(--rows), 30px);
 	gap: 0.5vmin;
 	padding: 0.5vmin;
 	border-radius: 0.5vmin;
 	background-color: #ccc;
+	justify-content: center;
 }
 
 .cell {
@@ -63,40 +93,30 @@
 }
 
 .number-container {
-	grid-row: 4;
+	background-color: #333;
+	grid-row: 1;
+	padding: 10px 0px;
 	grid-column: 2/12;
+	position: sticky;
+	top: -20px;
 }
 
 .letter-container {
-	grid-row: 5/15;
+	background-color: #333;
+	padding: 0px 10px;
+	grid-row: 2/12;
 	grid-column: 1;
 	flex-direction: column;
+	position: sticky;
+	left: -20px;
 }
 
-@media (min-width: $Laptops) {
-	.number-container {
-		grid-row: 1;
-		grid-column: 5/15;
-	}
-
-	.letter-container {
-		grid-row: 2/12;
-		grid-column: 4;
-		flex-direction: column;
-	}
-	.list {
-		grid-row: 2 / 12;
-		grid-column: 1/4;
-		justify-self: center;
-		align-content: center;
-	}
-
-	.grid-container {
-		grid-row: 2/12;
-		grid-column: 5 / 15;
-		width: 100%;
-		height: 100%;
-	}
+.flex-container {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	justify-content: center;
+	align-items: center;
 }
 
 .clicked {
@@ -176,36 +196,28 @@
 }
 
 @media screen and (min-width: $M_Phones) {
-	.grid-wrapper {
-		grid-template-columns: repeat(10, 40px);
-		grid-template-rows: repeat(10, 40px);
-	}
-	.number-container {
-		top: -6vmin;
+	.container {
+		max-width: 475px;
+		max-height: 475px;
 	}
 
-	.letter-container {
-		left: -6vmin;
+	.grid-wrapper {
+		grid-template-columns: repeat(var(--columns), 40px);
+		grid-template-rows: repeat(var(--rows), 40px);
 	}
 }
 
 @media screen and (min-width: $L_Phones) {
-	.number-container {
-		top: -5.5vmin;
-	}
-
-	.letter-container {
-		left: -5.5vmin;
+	.container {
+		max-width: 575px;
+		max-height: 575px;
 	}
 }
 
 @media screen and (min-width: $Tablets) {
-	.number-container {
-		top: -5vmin;
-	}
-
-	.letter-container {
-		left: -5vmin;
+	.container {
+		max-width: 650px;
+		max-height: 600px;
 	}
 
 	.letter-container,
@@ -214,21 +226,51 @@
 	}
 
 	.grid-wrapper {
-		grid-template-columns: repeat(10, 50px);
-		grid-template-rows: repeat(10, 50px);
+		grid-template-columns: repeat(var(--columns), 50px);
+		grid-template-rows: repeat(var(--rows), 50px);
 	}
 }
 
-@media screen and (min-width: $Laptops) {
-	.grid-wrapper {
-		grid-template-columns: repeat(10, 50px);
-		grid-template-rows: repeat(10, 50px);
+@media (min-width: $Laptops) {
+	.container {
+		max-width: 700px;
+		max-height: 650px;
+	}
+
+	.list {
+		width: auto;
+	}
+
+	.number-container {
+		grid-row: 1;
+		grid-column: 5/15;
+	}
+
+	.letter-container {
+		grid-row: 2/12;
+		grid-column: 4;
+		flex-direction: column;
+	}
+
+	.flex-container {
+		flex-direction: row;
+	}
+
+	.grid-container {
+		grid-row: 2/12;
+		grid-column: 5 / 15;
+		width: 100%;
+		height: 100%;
 	}
 }
 
 @media screen and (min-width: $Desktops) {
+	.container {
+		max-width: 735px;
+		max-height: 735px;
+	}
 	.grid-wrapper {
-		grid-template-columns: repeat(10, 60px);
-		grid-template-rows: repeat(10, 60px);
+		grid-template-columns: repeat(var(--columns), 60px);
+		grid-template-rows: repeat(var(--rows), 60px);
 	}
 }

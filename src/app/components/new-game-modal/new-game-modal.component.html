@@ -1,0 +1,103 @@
+<div class="modal-background">
+	<div class="modal-content">
+		<div
+			class="modal-container"
+			id="new-game-modal-container"
+			#modalContainer
+			tabindex="0"
+			(keydown)="onModalKeyPress($event)"
+		>
+			<h1 #title id="win-title">Start new game</h1>
+			<form [formGroup]="formGroup" (ngSubmit)="onStartGameSubmit()">
+				<div class="input-group">
+					<div class="form-control">
+						<label for="rows-input"
+							><span class="text-red" aria-hidden="true">* </span>
+							Rows number</label
+						>
+						<input
+							id="rows-input"
+							type="number"
+							min="2"
+							max="100"
+							required="true"
+							formControlName="rows"
+							name="rows"
+							(ngModelChange)="onInputChange($event)"
+							(keypress)="onInputKeyPress($event)"
+							#rowsInput
+						/>
+					</div>
+					<div
+						[hidden]="!formGroup.get('rows')?.errors"
+						aria-live="assertive"
+						class="input-error"
+					>
+						{{formGroup.get('rows')?.errors?.['min'] ? 'Minimum 2 rows required ' : formGroup.get('rows')?.errors?.['max'] ? 'Maximum 100 rows allowed' : formGroup.get('rows')?.errors?.['required'] ? 'Field is required' : 'Error'}}
+					</div>
+				</div>
+				<div class="input-group">
+					<div class="form-control">
+						<label for="colsNum"
+							><span class="text-red" aria-hidden="true">* </span
+							>Columns number</label
+						>
+						<input
+							id="colsNum"
+							type="number"
+							min="2"
+							max="100"
+							formControlName="columns"
+							name="columns"
+							required="true"
+							(ngModelChange)="onInputChange($event)"
+							(keypress)="onInputKeyPress($event)"
+						/>
+					</div>
+					<div
+						[hidden]="!formGroup.get('columns')?.errors"
+						class="input-error"
+						aria-live="assertive"
+					>
+						{{formGroup.get('columns')?.errors?.['min'] ? 'Minimum 2 columns required' : formGroup.get('columns')?.errors?.['max'] ? 'Maximum 100 columns allowed' : formGroup.get('columns')?.errors?.['required'] ? '* Field is required' : 'Error'}}
+					</div>
+				</div>
+				<div class="input-group">
+					<div class="form-control">
+						<label for="battleshipsNumber"
+							><span class="text-red" aria-hidden="true">* </span
+							>Battleships number</label
+						>
+						<input
+							id="battleshipsNumber"
+							type="number"
+							min="1"
+							[max]="calcMaxBattleships()"
+							formControlName="battleships"
+							name="battleships"
+							(keypress)="onBattleshipInputKeyPress($event)"
+							required="true"
+						/>
+					</div>
+					<div
+						[hidden]="!formGroup.get('battleships')?.errors"
+						class="input-error"
+						aria-live="assertive"
+					>
+						{{formGroup.get('battleships')?.errors?.["max"] ? 'Maximum ' + calcMaxBattleships() + ' battleships allowed' : formGroup.get('battleships')?.errors?.["min"] ? "Minimum 1 battleship required" : formGroup.get('battleships')?.errors?.['required'] ? '* Field is required' : 'Error'}}
+					</div>
+				</div>
+				<div class="input-group">
+					<input
+						id="new-game-submit"
+						type="submit"
+						class="new-game-btn"
+						value="Start new game"
+						[disabled]="!formGroup?.valid"
+						#submitButton
+					/>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
