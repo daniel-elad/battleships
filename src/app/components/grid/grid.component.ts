@@ -142,8 +142,6 @@ export class GridComponent implements AfterViewInit {
 		const emptyCells = allCells.filter((cell: HTMLElement) => {
 			return !cell.classList.contains('invisible');
 		});
-		console.log(emptyCells.length);
-
 		this.battleships.forEach((battleship) => {
 			battleship.forEach((id) => {
 				var index = emptyCells.indexOf(
