@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NewGame } from 'src/app/models/NewGame';
+import { RhombusService } from 'src/app/services/rhombus.service';
 
 @Component({
 	selector: 'app-new-game-modal',
@@ -23,14 +24,17 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	@ViewChild('submitButton') submitButton!: ElementRef;
 	@Output() startNewGame = new EventEmitter<NewGame>();
 	@Output() rowsChange = new EventEmitter<NewGame>();
+	@Output() cellsToDiss = new EventEmitter<string[]>();
+	cellsToDissapear: string[] = [];
 
 	formGroup = new FormGroup({
 		rows: new FormControl(10),
 		columns: new FormControl(10),
 		battleships: new FormControl(10),
+		makeRhombus: new FormControl(false),
 	});
 
-	constructor(private elementRef: ElementRef) {}
+	constructor(private rhombusService: RhombusService) {}
 
 	ngOnDestroy(): void {}
 
@@ -42,7 +46,9 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	calcMaxBattleships(): number {
 		let rows = this.formGroup.get('rows')?.value;
 		let cols = this.formGroup.get('columns')?.value;
-
+		if (this.formGroup.get('makeRhombus')?.value) {
+			return Math.floor((rows * cols - this.cellsToDissapear.length) / 2);
+		}
 		return Math.floor((rows * cols) / 2);
 	}
 
@@ -51,12 +57,42 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	onInputChange(event: any) {
+		this.onRhombusClick();
 		this.rowsChange.emit(this.formGroup.value);
 	}
 
-	onInputKeyPress(event: any) {
-		console.log(document.getSelection()?.toString());
+	onRhombusClick() {
+		let horizontal = this.formGroup.get('columns')?.value;
+		let vertical = this.formGroup.get('rows')?.value;
+		if (!this.formGroup.get('makeRhombus')?.value) {
+			this.cellsToDissapear = [];
+		} else {
+			if (horizontal! > vertical!) {
+				this.cellsToDissapear =
+					this.rhombusService.createHorizontalRhombus(
+						horizontal,
+						vertical
+					);
+			}
+			if (vertical! > horizontal!) {
+				this.cellsToDissapear =
+					this.rhombusService.createVerticalRhombus(
+						horizontal,
+						vertical
+					);
+			}
+			if (vertical == horizontal) {
+				this.cellsToDissapear =
+					this.rhombusService.createHorizontalRhombus(
+						horizontal,
+						vertical
+					);
+			}
+		}
+		this.cellsToDiss.emit(this.cellsToDissapear);
+	}
 
+	onInputKeyPress(event: any) {
 		if (
 			event.target.value >= 10 &&
 			event.target.value < 100 &&

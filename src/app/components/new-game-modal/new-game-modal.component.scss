@@ -4,10 +4,11 @@
 	top: 0;
 	bottom: 0;
 	right: 0;
-	background-color: rgba(black, 0.3);
+	background-color: rgba(black, 0.8);
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	z-index: 2;
 }
 
 .modal-content {
@@ -71,6 +72,16 @@
 .text-red {
 	color: red;
 }
+.form-control-checkbox {
+	& label {
+		font-size: 25px;
+		font-weight: bold;
+	}
+	& input {
+		height: 20px;
+		width: 15px;
+	}
+}
 
 .form-control {
 	display: flex;
@@ -83,7 +94,7 @@
 		font-size: 25px;
 		font-weight: bold;
 	}
-	& input {
+	& input[type='number'] {
 		padding: 0;
 		margin: 0;
 		height: 50px;

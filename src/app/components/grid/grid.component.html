@@ -7,7 +7,8 @@
 		[largeBattleships]="largeBattleships"
 		[isWin]="isWin"
 	></app-battleship-list>
-	<div class="container a">
+	<div class="container">
+		<div class="x"></div>
 		<div class="number-container">
 			<span *ngFor="let x of xAxis">{{ x }}</span>
 		</div>
@@ -22,7 +23,7 @@
 						(click)="onCellClick($event)"
 						class="cell"
 						[attr.aria-label]="y + x"
-						[id]="y + '_' + x"
+						[id]="y + '_' + ParseInt(x)"
 					></button>
 				</ng-container>
 			</div>
@@ -32,6 +33,7 @@
 <app-new-game-modal
 	(startNewGame)="onStartNewGame($event)"
 	(rowsChange)="configGrid($event)"
+	(cellsToDiss)="setCellsToDissapear($event)"
 	#newGameModal
 	tabindex="-1"
 ></app-new-game-modal>

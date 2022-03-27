@@ -10,14 +10,33 @@
 	--rows: '10';
 }
 
+.invisible {
+	visibility: hidden;
+}
+
 .container {
 	display: grid;
 	padding: 1em;
 	width: 100%;
 	height: 100%;
-	max-width: 375px;
-	max-height: 375px;
-	overflow: scroll;
+	//max-width: 375px;
+	//max-height: 375px;
+	max-width: 90vw;
+	max-height: 60vh;
+	overflow: auto;
+	position: relative;
+}
+
+.x {
+	grid-row: 1;
+	grid-column: 4;
+	background-color: #333;
+	height: 50px;
+	width: 50px;
+	position: sticky;
+	left: -20px;
+	top: -20px;
+	z-index: 1;
 }
 
 .container::-webkit-scrollbar-track {
@@ -99,6 +118,7 @@
 	grid-column: 2/12;
 	position: sticky;
 	top: -20px;
+	left: 0;
 }
 
 .letter-container {
@@ -109,12 +129,13 @@
 	flex-direction: column;
 	position: sticky;
 	left: -20px;
+	top: 0;
 }
 
 .flex-container {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 10px;
 	justify-content: center;
 	align-items: center;
 }
@@ -196,10 +217,10 @@
 }
 
 @media screen and (min-width: $M_Phones) {
-	.container {
+	/*.container {
 		max-width: 475px;
 		max-height: 475px;
-	}
+	}*/
 
 	.grid-wrapper {
 		grid-template-columns: repeat(var(--columns), 40px);
@@ -208,16 +229,16 @@
 }
 
 @media screen and (min-width: $L_Phones) {
-	.container {
+	/*.container {
 		max-width: 575px;
 		max-height: 575px;
-	}
+	}*/
 }
 
 @media screen and (min-width: $Tablets) {
 	.container {
-		max-width: 650px;
-		max-height: 600px;
+		max-width: 90vw;
+		max-height: 70vh;
 	}
 
 	.letter-container,
@@ -233,8 +254,8 @@
 
 @media (min-width: $Laptops) {
 	.container {
-		max-width: 700px;
-		max-height: 650px;
+		max-width: 70vw;
+		max-height: 92vh;
 	}
 
 	.list {
@@ -266,8 +287,7 @@
 
 @media screen and (min-width: $Desktops) {
 	.container {
-		max-width: 735px;
-		max-height: 735px;
+		max-width: 75vw;
 	}
 	.grid-wrapper {
 		grid-template-columns: repeat(var(--columns), 60px);

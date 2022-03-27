@@ -29,11 +29,12 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	margin: 0 auto;
 	gap: 10px;
 }
 
 .battleship-icon {
-	width: 60px;
+	width: 40px;
 }
 
 .battleship-title {
@@ -46,12 +47,7 @@
 .list-item-container,
 .battleship-container {
 	display: flex;
-	justify-content: center;
 	align-items: center;
-}
-
-.list-item-container {
-	flex-direction: column;
 }
 
 .battleship-container {
@@ -64,19 +60,30 @@
 	margin: 0;
 	text-align: center;
 	color: $backgroundColor;
-	font-size: larger;
+	font-size: 16px;
 	text-decoration: underline;
 }
 
+.battleship-title {
+	font-size: 16px;
+	margin: 0px;
+	padding: 0px;
+	display: inline;
+}
+@media (min-width: $M_Phones) {
+	.list-item-container {
+		gap: 5px;
+	}
+}
 @media (min-width: $Tablets) {
 	.battleship-icon {
-		width: 70px;
+		width: 50px;
 	}
 	.battleship-title {
 		font-size: 20px;
 	}
 	.list-title {
-		font-size: 25px;
+		font-size: 20px;
 	}
 	.battleship-container {
 		max-width: 350px;
@@ -92,5 +99,8 @@
 	}
 	.battleship-container {
 		max-width: 200px;
+	}
+	.list-item-container {
+		flex-direction: column;
 	}
 }

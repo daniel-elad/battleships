@@ -12,6 +12,7 @@ import {
 } from 'src/app/extensions/nested-extensions';
 import { NewGame } from 'src/app/models/NewGame';
 import { BattleshipService } from 'src/app/services/battleship.service';
+import { RhombusService } from 'src/app/services/rhombus.service';
 
 @Component({
 	selector: 'app-grid',
@@ -26,6 +27,7 @@ export class GridComponent implements AfterViewInit {
 	smallBattleships: number;
 	mediumBattleships: number;
 	largeBattleships: number;
+	cellsToDissapear: string[] = [];
 	@ViewChild('container') container!: ElementRef;
 	@ViewChild('list', { read: ElementRef }) list!: ElementRef;
 	@ViewChild('newGameModal', { read: ElementRef }) newGameModal!: ElementRef;
@@ -34,7 +36,8 @@ export class GridComponent implements AfterViewInit {
 
 	constructor(
 		private battleshipService: BattleshipService,
-		private cdRef: ChangeDetectorRef
+		private cdRef: ChangeDetectorRef,
+		private rhombusService: RhombusService
 	) {
 		this.smallBattleships = 0;
 		this.mediumBattleships = 0;
@@ -45,19 +48,35 @@ export class GridComponent implements AfterViewInit {
 		document.documentElement.style.setProperty('--columns', '10');
 		document.documentElement.style.setProperty('--rows', '10');
 		this.cdRef.detectChanges();
-		console.log(this.newGameModal.nativeElement.firstChild as HTMLElement);
+	}
+
+	ParseInt(x: string) {
+		return Number.parseInt(x);
 	}
 
 	startNewGame(data: NewGame): void {
 		this.isWin = false;
 		this.cells = this.initCells();
 		this.resetCells();
+		this.InvisibleCells(data.columns, data.rows);
 		this.createBattleShip(data.battleships);
 		this.list.nativeElement.firstChild.firstChild.firstChild.focus();
 	}
 
 	initCells() {
 		return Array.from(this.container.nativeElement.children) as Element[];
+	}
+
+	InvisibleCells(horizontal: number, vertical: number) {
+		this.cells.forEach((cell) => {
+			if (this.cellsToDissapear.includes(cell.id)) {
+				cell.classList.add('invisible');
+			}
+		});
+	}
+
+	setCellsToDissapear(cells: string[]) {
+		this.cellsToDissapear = cells;
 	}
 
 	resetCells() {
@@ -79,7 +98,8 @@ export class GridComponent implements AfterViewInit {
 				'battleship-vertical-end',
 				'battleship-horizontal-middle',
 				'battleship-vertical-middle',
-				'battleship-full'
+				'battleship-full',
+				'invisible'
 			);
 			cell.removeAttribute('disabled');
 			cell.removeAttribute('aria-disabled');
@@ -115,9 +135,15 @@ export class GridComponent implements AfterViewInit {
 	}
 
 	getEmptyCells() {
-		const emptyCells: HTMLElement[] = Array.from(
+		const allCells: HTMLElement[] = Array.from(
 			this.container.nativeElement.children
 		);
+
+		const emptyCells = allCells.filter((cell: HTMLElement) => {
+			return !cell.classList.contains('invisible');
+		});
+		console.log(emptyCells.length);
+
 		this.battleships.forEach((battleship) => {
 			battleship.forEach((id) => {
 				var index = emptyCells.indexOf(

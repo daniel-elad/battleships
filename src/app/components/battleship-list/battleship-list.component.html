@@ -16,19 +16,12 @@
 								: 'No small battleship remaining'
 						}}
 					</p>
-					<div class="battleship-container">
-						<img
-							class="battleship-icon"
-							[src]="battleshipIconSrc"
-							[alt]="battleshipIconAlt"
-							aria-hidden="true"
-							*ngFor="
-								let smallBattleship of [].constructor(
-									smallBattleships
-								)
-							"
-						/>
-					</div>
+					<img
+						class="battleship-icon"
+						[src]="battleshipIconSrc"
+						[alt]="battleshipIconAlt"
+						aria-hidden="true"
+					/>
 				</div>
 			</div>
 			<div>
@@ -45,19 +38,12 @@
 								: 'No medium battleship remaining'
 						}}
 					</p>
-					<div class="battleship-container">
-						<img
-							aria-hidden="true"
-							class="battleship-icon"
-							[src]="battleshipIconSrc"
-							[alt]="battleshipIconAlt"
-							*ngFor="
-								let mediumBattleship of [].constructor(
-									mediumBattleships
-								)
-							"
-						/>
-					</div>
+					<img
+						class="battleship-icon"
+						[src]="battleshipIconSrc"
+						[alt]="battleshipIconAlt"
+						aria-hidden="true"
+					/>
 				</div>
 			</div>
 			<div>
@@ -74,19 +60,12 @@
 								: 'No large battleship remaining'
 						}}
 					</p>
-					<div class="battleship-container">
-						<img
-							class="battleship-icon"
-							[src]="battleshipIconSrc"
-							[alt]="battleshipIconAlt"
-							*ngFor="
-								let largeBattleship of [].constructor(
-									largeBattleships
-								)
-							"
-							aria-hidden="true"
-						/>
-					</div>
+					<img
+						class="battleship-icon"
+						[src]="battleshipIconSrc"
+						[alt]="battleshipIconAlt"
+						aria-hidden="true"
+					/>
 				</div>
 			</div>
 		</div>
