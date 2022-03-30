@@ -94,8 +94,8 @@
 	border: none;
 	cursor: pointer;
 
-	&:hover:not(.clicked):not(.won):not(.battleship-light),
-	&:focus:not(.clicked):not(.won):not(.battleship-light) {
+	&:hover:not(.clicked):not(.won):not(.battleship-light):not(.island),
+	&:focus:not(.clicked):not(.won):not(.battleship-light):not(.island) {
 		background-color: #777;
 		border: none;
 		outline: none;
@@ -159,17 +159,25 @@
 	&:hover,
 	&:focus {
 		background-color: rgb(190, 0, 0);
-		border: none;
-		outline: none;
+		// border: none;
+		// outline: none;
 	}
 }
 
-.battleship {
+.island {
+	background-color: rgb(99, 74, 47);
+	border: 2px solid $backgroundColor;
+	&:focus,
+	&:hover {
+		background-color: rgb(46, 31, 14);
+	}
+}
+
+.battleship,
+.island-clicked {
 	@include show(rgb(211, 0, 0));
 	&:focus,
 	&:hover {
-		border: none;
-		outline: none;
 		@include show(rgb(190, 0, 0));
 	}
 }

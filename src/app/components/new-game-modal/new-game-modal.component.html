@@ -96,7 +96,29 @@
 							type="checkbox"
 							(change)="onRhombusClick()"
 						/>
-						<label for="battleshipsNumber">Make rhombus</label>
+						<label for="make-rhombus">Make rhombus</label>
+					</div>
+				</div>
+				<div class="input-group">
+					<div class="form-control-checkbox">
+						<input
+							id="spawn-islands"
+							name="spawn-islands"
+							formControlName="spawnIslands"
+							type="checkbox"
+							(change)="onSpawnIslandsClick()"
+						/>
+						<label for="spawn-islands">Spawn islands</label>
+					</div>
+					<div
+						[hidden]="
+							!this.formGroup.get('spawnIslands')?.value ||
+							islandsNum > 0
+						"
+						class="input-error"
+						aria-live="assertive"
+					>
+						Islands will not be created due to lack of space
 					</div>
 				</div>
 				<div class="input-group">

@@ -18,8 +18,8 @@
 					</p>
 					<img
 						class="battleship-icon"
-						[src]="battleshipIconSrc"
-						[alt]="battleshipIconAlt"
+						src="assets/battleship.svg"
+						alt="Battleship icon"
 						aria-hidden="true"
 					/>
 				</div>
@@ -38,12 +38,15 @@
 								: 'No medium battleship remaining'
 						}}
 					</p>
-					<img
-						class="battleship-icon"
-						[src]="battleshipIconSrc"
-						[alt]="battleshipIconAlt"
-						aria-hidden="true"
-					/>
+					<div>
+						<img
+							*ngFor="let x of [].constructor(2)"
+							class="battleship-icon"
+							src="assets/battleship.svg"
+							alt="Battleship icon"
+							aria-hidden="true"
+						/>
+					</div>
 				</div>
 			</div>
 			<div>
@@ -60,12 +63,15 @@
 								: 'No large battleship remaining'
 						}}
 					</p>
-					<img
-						class="battleship-icon"
-						[src]="battleshipIconSrc"
-						[alt]="battleshipIconAlt"
-						aria-hidden="true"
-					/>
+					<div>
+						<img
+							*ngFor="let x of [].constructor(3)"
+							class="battleship-icon"
+							src="assets/battleship.svg"
+							alt="Battleship icon"
+							aria-hidden="true"
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

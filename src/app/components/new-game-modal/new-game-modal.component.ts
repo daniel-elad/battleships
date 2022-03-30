@@ -18,20 +18,23 @@ import { RhombusService } from 'src/app/services/rhombus.service';
 	styleUrls: ['./new-game-modal.component.scss'],
 })
 export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
-	@ViewChild('modalContainer') modalContainer!: ElementRef;
-	@ViewChild('Hi') hi!: ElementRef;
-	@ViewChild('rowsInput') rowsInput!: ElementRef;
-	@ViewChild('submitButton') submitButton!: ElementRef;
+	@ViewChild('modalContainer') modalContainer: ElementRef = {} as ElementRef;
+	@ViewChild('Hi') hi: ElementRef = {} as ElementRef;
+	@ViewChild('rowsInput') rowsInput: ElementRef = {} as ElementRef;
+	@ViewChild('submitButton') submitButton: ElementRef = {} as ElementRef;
 	@Output() startNewGame = new EventEmitter<NewGame>();
 	@Output() rowsChange = new EventEmitter<NewGame>();
 	@Output() cellsToDiss = new EventEmitter<string[]>();
+	@Output() islandsNumber = new EventEmitter<number>();
 	cellsToDissapear: string[] = [];
+	islandsNum: number = 0;
 
 	formGroup = new FormGroup({
 		rows: new FormControl(10),
 		columns: new FormControl(10),
 		battleships: new FormControl(10),
 		makeRhombus: new FormControl(false),
+		spawnIslands: new FormControl(false),
 	});
 
 	constructor(private rhombusService: RhombusService) {}
@@ -46,10 +49,22 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	calcMaxBattleships(): number {
 		let rows = this.formGroup.get('rows')?.value;
 		let cols = this.formGroup.get('columns')?.value;
-		if (this.formGroup.get('makeRhombus')?.value) {
-			return Math.floor((rows * cols - this.cellsToDissapear.length) / 2);
-		}
-		return Math.floor((rows * cols) / 2);
+		return Math.floor(
+			(rows * cols - this.cellsToDissapear.length - this.islandsNum) / 2
+		);
+	}
+
+	setIslandNumber() {
+		let rows = this.formGroup.get('rows')?.value;
+		let cols = this.formGroup.get('columns')?.value;
+		const emptyCellsNum = rows * cols - this.cellsToDissapear.length;
+		this.islandsNum = Math.floor(emptyCellsNum / 10);
+	}
+
+	onSpawnIslandsClick() {
+		if (this.formGroup.get('spawnIslands')?.value) this.setIslandNumber();
+		else this.islandsNum = 0;
+		this.islandsNumber.emit(this.islandsNum);
 	}
 
 	onStartGameSubmit() {
@@ -58,6 +73,7 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	onInputChange(event: any) {
 		this.onRhombusClick();
+		this.onSpawnIslandsClick();
 		this.rowsChange.emit(this.formGroup.value);
 	}
 
@@ -67,14 +83,14 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 		if (!this.formGroup.get('makeRhombus')?.value) {
 			this.cellsToDissapear = [];
 		} else {
-			if (horizontal! > vertical!) {
+			if (horizontal > vertical) {
 				this.cellsToDissapear =
 					this.rhombusService.createHorizontalRhombus(
 						horizontal,
 						vertical
 					);
 			}
-			if (vertical! > horizontal!) {
+			if (vertical > horizontal) {
 				this.cellsToDissapear =
 					this.rhombusService.createVerticalRhombus(
 						horizontal,

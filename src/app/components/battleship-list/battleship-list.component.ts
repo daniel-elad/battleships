@@ -12,14 +12,11 @@ import {
 	styleUrls: ['./battleship-list.component.scss'],
 })
 export class BattleshipListComponent implements OnInit, AfterViewInit {
-	@Input() smallBattleships!: Number;
-	@Input() mediumBattleships!: Number;
-	@Input() largeBattleships!: Number;
-	@Input() isWin!: Boolean;
-	@ViewChild('listTitle') listTitle!: ElementRef;
-
-	battleshipIconSrc: string = 'assets/battleship.svg';
-	battleshipIconAlt: string = 'Battleship icon';
+	@Input() smallBattleships: Number = 0;
+	@Input() mediumBattleships: Number = 0;
+	@Input() largeBattleships: Number = 0;
+	@Input() isWin: Boolean = false;
+	@ViewChild('listTitle') listTitle: ElementRef = {} as ElementRef;
 
 	constructor() {}
 

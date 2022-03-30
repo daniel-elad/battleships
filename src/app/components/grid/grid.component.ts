@@ -12,6 +12,7 @@ import {
 } from 'src/app/extensions/nested-extensions';
 import { NewGame } from 'src/app/models/NewGame';
 import { BattleshipService } from 'src/app/services/battleship.service';
+import { IslandService } from 'src/app/services/island.service';
 import { RhombusService } from 'src/app/services/rhombus.service';
 
 @Component({
@@ -24,25 +25,24 @@ export class GridComponent implements AfterViewInit {
 	bombedBattleships: string[] = [];
 	isWin: boolean = false;
 	cells: Element[] = [];
-	smallBattleships: number;
-	mediumBattleships: number;
-	largeBattleships: number;
+	smallBattleships: number = 0;
+	mediumBattleships: number = 0;
+	largeBattleships: number = 0;
 	cellsToDissapear: string[] = [];
-	@ViewChild('container') container!: ElementRef;
-	@ViewChild('list', { read: ElementRef }) list!: ElementRef;
-	@ViewChild('newGameModal', { read: ElementRef }) newGameModal!: ElementRef;
+	islandsNum: number = 0;
+	@ViewChild('container') container: ElementRef = {} as ElementRef;
+	@ViewChild('list', { read: ElementRef }) list: ElementRef =
+		{} as ElementRef;
+	@ViewChild('newGameModal', { read: ElementRef }) newGameModal: ElementRef =
+		{} as ElementRef;
 	xAxis: string[] = gridNumbers.slice(0, 10);
 	yAxis: string[] = gridLetters.slice(0, 10);
 
 	constructor(
 		private battleshipService: BattleshipService,
-		private cdRef: ChangeDetectorRef,
-		private rhombusService: RhombusService
-	) {
-		this.smallBattleships = 0;
-		this.mediumBattleships = 0;
-		this.largeBattleships = 0;
-	}
+		private islandsService: IslandService,
+		private cdRef: ChangeDetectorRef
+	) {}
 
 	ngAfterViewInit(): void {
 		document.documentElement.style.setProperty('--columns', '10');
@@ -58,7 +58,8 @@ export class GridComponent implements AfterViewInit {
 		this.isWin = false;
 		this.cells = this.initCells();
 		this.resetCells();
-		this.InvisibleCells(data.columns, data.rows);
+		this.InvisibleCells();
+		this.spawnIslands();
 		this.createBattleShip(data.battleships);
 		this.list.nativeElement.firstChild.firstChild.firstChild.focus();
 	}
@@ -67,7 +68,7 @@ export class GridComponent implements AfterViewInit {
 		return Array.from(this.container.nativeElement.children) as Element[];
 	}
 
-	InvisibleCells(horizontal: number, vertical: number) {
+	InvisibleCells() {
 		this.cells.forEach((cell) => {
 			if (this.cellsToDissapear.includes(cell.id)) {
 				cell.classList.add('invisible');
@@ -75,8 +76,21 @@ export class GridComponent implements AfterViewInit {
 		});
 	}
 
+	spawnIslands() {
+		const cells: HTMLElement[] = Array.from(
+			this.container.nativeElement.children
+		);
+		for (let index = 0; index < this.islandsNum; index++) {
+			this.islandsService.createIsland(this.getEmptyCells(), cells);
+		}
+	}
+
 	setCellsToDissapear(cells: string[]) {
 		this.cellsToDissapear = cells;
+	}
+
+	setIslandNum(islandsNumber: number) {
+		this.islandsNum = islandsNumber;
 	}
 
 	resetCells() {
@@ -92,6 +106,8 @@ export class GridComponent implements AfterViewInit {
 				'no-battleship',
 				'clicked',
 				'won',
+				'island',
+				'island-clicked',
 				'battleship-horizontal-start',
 				'battleship-horizontal-end',
 				'battleship-vertical-start',
@@ -140,7 +156,10 @@ export class GridComponent implements AfterViewInit {
 		);
 
 		const emptyCells = allCells.filter((cell: HTMLElement) => {
-			return !cell.classList.contains('invisible');
+			return (
+				!cell.classList.contains('invisible') &&
+				!cell.classList.contains('island')
+			);
 		});
 		this.battleships.forEach((battleship) => {
 			battleship.forEach((id) => {
@@ -163,6 +182,9 @@ export class GridComponent implements AfterViewInit {
 			this.bombedBattleships.push(cell.id);
 			cell.setAttribute('aria-label', `${cell.id} Battleship`);
 			this.checkBombedShip(cell.id);
+		} else if (cell.classList.contains('island')) {
+			cell.classList.add('island-clicked');
+			cell.setAttribute('aria-label', `${cell.id} Island`);
 		} else {
 			cell.classList.add('no-battleship');
 			cell.setAttribute('aria-label', `${cell.id} No battleship`);
