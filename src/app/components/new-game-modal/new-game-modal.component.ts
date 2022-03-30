@@ -8,7 +8,13 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+	AbstractControl,
+	FormControl,
+	FormGroup,
+	ValidationErrors,
+	ValidatorFn,
+} from '@angular/forms';
 import { NewGame } from 'src/app/models/NewGame';
 import { RhombusService } from 'src/app/services/rhombus.service';
 
@@ -29,13 +35,28 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	cellsToDissapear: string[] = [];
 	islandsNum: number = 0;
 
-	formGroup = new FormGroup({
-		rows: new FormControl(10),
-		columns: new FormControl(10),
-		battleships: new FormControl(10),
-		makeRhombus: new FormControl(false),
-		spawnIslands: new FormControl(false),
-	});
+	rhombusErrorValidator: ValidatorFn = (
+		control: AbstractControl
+	): ValidationErrors | null => {
+		const rows = control.get('rows');
+		const columns = control.get('columns');
+		const makeRhombus = control.get('makeRhombus');
+
+		return makeRhombus?.value && (rows?.value < 3 || columns?.value < 3)
+			? { rhombusError: true }
+			: null;
+	};
+
+	formGroup = new FormGroup(
+		{
+			rows: new FormControl(10),
+			columns: new FormControl(10),
+			battleships: new FormControl(10),
+			makeRhombus: new FormControl(false),
+			spawnIslands: new FormControl(false),
+		},
+		{ validators: this.rhombusErrorValidator }
+	);
 
 	constructor(private rhombusService: RhombusService) {}
 
@@ -72,12 +93,27 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	onInputChange(event: any) {
-		this.onRhombusClick();
-		this.onSpawnIslandsClick();
+		if (this.formGroup.get('spawnIslands')?.value) {
+			this.onSpawnIslandsClick();
+		}
+		if (this.formGroup.get('makeRhombus')?.value) {
+			this.onRhombusClick();
+		}
 		this.rowsChange.emit(this.formGroup.value);
 	}
 
 	onRhombusClick() {
+		this.onSpawnIslandsClick();
+		if (
+			this.formGroup.get('rows')?.value < 3 ||
+			this.formGroup.get('columns')?.value < 3
+		) {
+			this.cellsToDissapear = [];
+			this.cellsToDiss.emit(this.cellsToDissapear);
+			return;
+		}
+		console.log(this.islandsNum);
+
 		let horizontal = this.formGroup.get('columns')?.value;
 		let vertical = this.formGroup.get('rows')?.value;
 		if (!this.formGroup.get('makeRhombus')?.value) {

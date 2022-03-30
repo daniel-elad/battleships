@@ -11,6 +11,10 @@
 	z-index: 2;
 }
 
+#start-new-game-title {
+	margin: 0;
+}
+
 .modal-content {
 	background-color: white;
 	border-radius: 10px;
@@ -26,8 +30,9 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	padding: 2em;
-	gap: 2em;
+	padding: 1em;
+	overflow-y: auto;
+	gap: 1em;
 
 	h1 {
 		text-align: center;
@@ -66,7 +71,8 @@
 
 .input-error {
 	color: red;
-	font-size: 15px;
+
+	font-size: 14px;
 }
 
 .text-red {
@@ -74,7 +80,7 @@
 }
 .form-control-checkbox {
 	& label {
-		font-size: 25px;
+		font-size: 22px;
 		font-weight: bold;
 	}
 	& input {
@@ -91,7 +97,7 @@
 	align-items: center;
 
 	& label {
-		font-size: 25px;
+		font-size: 22px;
 		font-weight: bold;
 	}
 	& input[type='number'] {

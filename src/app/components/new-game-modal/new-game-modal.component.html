@@ -7,7 +7,7 @@
 			tabindex="0"
 			(keydown)="onModalKeyPress($event)"
 		>
-			<h1 #title id="win-title">Start new game</h1>
+			<h1 #title id="start-new-game-title">Start new game</h1>
 			<form [formGroup]="formGroup" (ngSubmit)="onStartGameSubmit()">
 				<div class="input-group">
 					<div class="form-control">
@@ -80,7 +80,7 @@
 						/>
 					</div>
 					<div
-						[hidden]="!formGroup.get('battleships')?.errors"
+						[hidden]="!formGroup.get('battleships')?.errors || (this.formGroup.errors?.['rhombusError'])"
 						class="input-error"
 						aria-live="assertive"
 					>
@@ -98,6 +98,14 @@
 						/>
 						<label for="make-rhombus">Make rhombus</label>
 					</div>
+					<div
+						[hidden]="!this.formGroup.errors?.['rhombusError']"
+						class="input-error"
+						aria-live="assertive"
+					>
+						The grid cannot be rhombus if the number <br />of rows
+						or columns is less than 3
+					</div>
 				</div>
 				<div class="input-group">
 					<div class="form-control-checkbox">
@@ -111,14 +119,12 @@
 						<label for="spawn-islands">Spawn islands</label>
 					</div>
 					<div
-						[hidden]="
-							!this.formGroup.get('spawnIslands')?.value ||
-							islandsNum > 0
-						"
+						[hidden]="(!this.formGroup.get('spawnIslands')?.value || this.islandsNum > 0) || (this.formGroup.errors?.['rhombusError'])"
 						class="input-error"
 						aria-live="assertive"
 					>
-						Islands will not be created due to lack of space
+						Islands will not be created<br />
+						due to lack of space
 					</div>
 				</div>
 				<div class="input-group">
@@ -127,7 +133,10 @@
 						type="submit"
 						class="new-game-btn"
 						value="Start new game"
-						[disabled]="!formGroup?.valid"
+						[disabled]="
+							!formGroup?.valid ||
+							this.formGroup.errors?.['rhombusError']
+						"
 						#submitButton
 					/>
 				</div>
