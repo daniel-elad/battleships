@@ -1,0 +1,75 @@
+@import '../../../variables';
+
+.container {
+	background-color: $foregroundColor;
+	padding: 10px 20px;
+	border-radius: 15px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+	margin: 10px 0;
+}
+
+.input-group input:not([type='submit']) {
+	height: 30px;
+	width: 200px;
+	border-radius: 5px;
+	border: 1px solid black;
+	font-size: 16px;
+	padding: 0 10px;
+	text-transform: uppercase;
+}
+
+.input-group label {
+	font-weight: bold;
+	margin-bottom: 5px;
+	font-size: 14px;
+}
+
+.input-group input[type='submit'] {
+	height: 30px;
+	width: 200px;
+	border-radius: 5px;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 0 10px;
+	background-color: #c22525;
+	color: white;
+	border: none;
+	cursor: pointer;
+	&:hover {
+		background-color: #8b1010;
+	}
+	&:disabled {
+		background-color: gray;
+		cursor: default;
+	}
+}
+
+.error {
+	font-size: 10px;
+	text-align: center;
+	color: red;
+}
+
+@media screen and (min-width: $M_Phones) {
+	.input-group label {
+		font-size: 18px;
+	}
+
+	.input-group input[type='submit'] {
+		height: 40px;
+	}
+
+	.input-group input:not([type='submit']) {
+		height: 40px;
+	}
+}

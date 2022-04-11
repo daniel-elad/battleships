@@ -8,6 +8,7 @@ import { ModalComponent } from './components/win-modal/win-modal.component';
 import { BattleshipListComponent } from './components/battleship-list/battleship-list.component';
 import { NewGameModalComponent } from './components/new-game-modal/new-game-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BattleshipDestroyerComponent } from './components/battleship-destroyer/battleship-destroyer.component';
 
 @NgModule({
 	declarations: [
@@ -16,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 		ModalComponent,
 		BattleshipListComponent,
 		NewGameModalComponent,
+  BattleshipDestroyerComponent,
 	],
 	imports: [
 		BrowserModule,

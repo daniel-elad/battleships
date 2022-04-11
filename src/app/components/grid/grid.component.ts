@@ -174,8 +174,7 @@ export class GridComponent implements AfterViewInit {
 		return emptyCells.map((emptyCell) => emptyCell.id);
 	}
 
-	onCellClick(event: any) {
-		const cell: HTMLElement = event.target;
+	bombCell(cell: HTMLElement) {
 		if (cell.classList.contains('clicked') || this.isWin) return;
 		if (nestedInclude(this.battleships, cell.id)) {
 			cell.classList.add('battleship');
@@ -194,6 +193,15 @@ export class GridComponent implements AfterViewInit {
 		this.checkWin();
 	}
 
+	onCellClick(event: any) {
+		const cell: HTMLElement = event.target;
+		this.bombCell(cell);
+	}
+
+	onAttack(cell: HTMLElement) {
+		this.bombCell(cell);
+	}
+
 	checkWin() {
 		if (this.bombedBattleships.length < nestedLength(this.battleships))
 			return false;
@@ -204,6 +212,7 @@ export class GridComponent implements AfterViewInit {
 			cell.classList.add('won');
 			cell.setAttribute('disabled', 'true');
 			cell.setAttribute('aria-disabled', 'true');
+			cell.setAttribute('aria-live', 'off');
 		});
 		return true;
 	}

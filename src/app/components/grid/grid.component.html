@@ -1,12 +1,19 @@
 <div class="flex-container">
-	<app-battleship-list
-		#list
-		class="list"
-		[smallBattleships]="smallBattleships"
-		[mediumBattleships]="mediumBattleships"
-		[largeBattleships]="largeBattleships"
-		[isWin]="isWin"
-	></app-battleship-list>
+	<div class="lists-container">
+		<app-battleship-destroyer
+			[cells]="cells"
+			class="battleship-destroyer"
+			(onAttack)="onAttack($event)"
+		></app-battleship-destroyer>
+		<app-battleship-list
+			#list
+			class="list"
+			[smallBattleships]="smallBattleships"
+			[mediumBattleships]="mediumBattleships"
+			[largeBattleships]="largeBattleships"
+			[isWin]="isWin"
+		></app-battleship-list>
+	</div>
 	<div class="container">
 		<div class="x"></div>
 		<div class="number-container">
@@ -23,6 +30,7 @@
 						(click)="onCellClick($event)"
 						class="cell"
 						[attr.aria-label]="y + x"
+						aria-live="polite"
 						[id]="y + '_' + ParseInt(x)"
 					></button>
 				</ng-container>

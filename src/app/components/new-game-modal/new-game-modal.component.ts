@@ -78,6 +78,7 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	setIslandNumber() {
 		let rows = this.formGroup.get('rows')?.value;
 		let cols = this.formGroup.get('columns')?.value;
+		console.log(this.cellsToDissapear);
 		const emptyCellsNum = rows * cols - this.cellsToDissapear.length;
 		this.islandsNum = Math.floor(emptyCellsNum / 10);
 	}
@@ -103,16 +104,15 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	onRhombusClick() {
-		this.onSpawnIslandsClick();
 		if (
 			this.formGroup.get('rows')?.value < 3 ||
 			this.formGroup.get('columns')?.value < 3
 		) {
 			this.cellsToDissapear = [];
+			this.onSpawnIslandsClick();
 			this.cellsToDiss.emit(this.cellsToDissapear);
 			return;
 		}
-		console.log(this.islandsNum);
 
 		let horizontal = this.formGroup.get('columns')?.value;
 		let vertical = this.formGroup.get('rows')?.value;
@@ -141,6 +141,7 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 					);
 			}
 		}
+		this.onSpawnIslandsClick();
 		this.cellsToDiss.emit(this.cellsToDissapear);
 	}
 

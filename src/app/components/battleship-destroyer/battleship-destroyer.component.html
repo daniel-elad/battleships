@@ -1,0 +1,40 @@
+<div class="container">
+	<form [formGroup]="destroyerForm" (ngSubmit)="onSubmit($event)">
+		<div class="input-group">
+			<label for="cellLetter">Cell letter</label>
+			<input
+				#letterInput
+				type="text"
+				maxLength="2"
+				(keypress)="onLetterInputKeyPress($event)"
+				(ngModelChange)="onInputChange()"
+				formControlName="cellLetter"
+				required
+				id="cellLetter"
+			/>
+		</div>
+		<div class="input-group">
+			<label for="cellNumber">Cell number</label>
+			<input
+				type="number"
+				min="0"
+				max="99"
+				(keypress)="onNumberInputKeyPress($event)"
+				required
+				formControlName="cellNumber"
+				(ngModelChange)="onInputChange()"
+				id="cellNumber"
+			/>
+		</div>
+		<p class="error" [hidden]="!cellError" aria-live="assertive">
+			The cell is either not found<br />or already got attacked
+		</p>
+		<div class="input-group">
+			<input
+				type="submit"
+				value="Attack"
+				[disabled]="!destroyerForm.valid || cellError"
+			/>
+		</div>
+	</form>
+</div>
