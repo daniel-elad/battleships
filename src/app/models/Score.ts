@@ -1,7 +1,8 @@
-export interface NewGame {
+export default interface Score {
 	rows: number;
 	columns: number;
 	battleships: number;
-	makeRhombus: boolean;
+	isRhombus: boolean;
 	spawnIslands: boolean;
+	clicksNumber: number;
 }

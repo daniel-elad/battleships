@@ -49,4 +49,6 @@
 <app-win-modal
 	*ngIf="this.isWin"
 	(startnewGame)="openStartModal()"
+	(resetScores)="resetScore()"
+	[scores]="this.Scores"
 ></app-win-modal>

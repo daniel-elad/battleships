@@ -11,6 +11,7 @@ import {
 	nestedLength,
 } from 'src/app/extensions/nested-extensions';
 import { NewGame } from 'src/app/models/NewGame';
+import Score from 'src/app/models/Score';
 import { BattleshipService } from 'src/app/services/battleship.service';
 import { IslandService } from 'src/app/services/island.service';
 import { RhombusService } from 'src/app/services/rhombus.service';
@@ -29,6 +30,7 @@ export class GridComponent implements AfterViewInit {
 	mediumBattleships: number = 0;
 	largeBattleships: number = 0;
 	cellsToDissapear: string[] = [];
+	Scores: Score[] = [];
 	islandsNum: number = 0;
 	@ViewChild('container') container: ElementRef = {} as ElementRef;
 	@ViewChild('list', { read: ElementRef }) list: ElementRef =
@@ -189,6 +191,7 @@ export class GridComponent implements AfterViewInit {
 			cell.setAttribute('aria-label', `${cell.id} No battleship`);
 		}
 		cell.classList.add('clicked');
+		this.Scores[this.Scores.length - 1].clicksNumber++;
 		cell.setAttribute('aria-disabled', 'true');
 		this.checkWin();
 	}
@@ -214,6 +217,7 @@ export class GridComponent implements AfterViewInit {
 			cell.setAttribute('aria-disabled', 'true');
 			cell.setAttribute('aria-live', 'off');
 		});
+		console.log(this.Scores);
 		return true;
 	}
 
@@ -245,6 +249,14 @@ export class GridComponent implements AfterViewInit {
 
 	onStartNewGame(formInput: NewGame) {
 		this.startNewGame(formInput);
+		this.Scores.push({
+			rows: formInput.rows,
+			columns: formInput.columns,
+			battleships: formInput.battleships,
+			isRhombus: formInput.makeRhombus,
+			spawnIslands: formInput.spawnIslands,
+			clicksNumber: 0,
+		});
 		this.newGameModal.nativeElement.style.display = 'none';
 	}
 
@@ -273,5 +285,10 @@ export class GridComponent implements AfterViewInit {
 		this.newGameModal.nativeElement.style.display = 'block';
 		this.newGameModal.nativeElement.focus();
 		this.resetCells();
+	}
+
+	resetScore() {
+		this.Scores = [];
+		this.openStartModal();
 	}
 }

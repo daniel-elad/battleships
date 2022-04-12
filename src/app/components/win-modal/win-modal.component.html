@@ -7,8 +7,37 @@
 			#winModal
 		>
 			<h1 #title id="win-title">Congratulations, you won!</h1>
+			<table *ngIf="this.scores.length > 0" class="score-table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Board<br />size</th>
+						<th>Rhombus<br />board</th>
+						<th>Islands</th>
+						<th>Battleships</th>
+						<th>Num. <br />of clicks</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let score of scores; index as i">
+						<td>{{ i + 1 }}</td>
+						<td>{{ score.rows + 'X' + score.columns }}</td>
+						<td>{{ score.isRhombus ? 'Yes' : 'No' }}</td>
+						<td>{{ score.spawnIslands ? 'Yes' : 'No' }}</td>
+						<td>{{ score.battleships }}</td>
+						<td>{{ score.clicksNumber }}</td>
+					</tr>
+				</tbody>
+			</table>
 			<button class="new-game-btn" (click)="startGame()">
 				Start new game
+			</button>
+			<button
+				*ngIf="this.scores.length > 0"
+				class="new-game-btn"
+				(click)="resetScore()"
+			>
+				Reset score
 			</button>
 		</div>
 	</div>
