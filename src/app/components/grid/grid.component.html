@@ -52,3 +52,9 @@
 	(resetScores)="resetScore()"
 	[scores]="this.Scores"
 ></app-win-modal>
+<app-timer
+	[init]="15"
+	[events]="eventsSubject.asObservable()"
+	(hideTimer)="hideTimer()"
+	*ngIf="showTimer"
+></app-timer>

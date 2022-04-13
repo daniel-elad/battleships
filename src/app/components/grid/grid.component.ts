@@ -5,6 +5,7 @@ import {
 	ElementRef,
 	ViewChild,
 } from '@angular/core';
+import { Subject } from 'rxjs';
 import { gridLetters, gridNumbers } from 'src/app/extensions/grid-helper';
 import {
 	nestedInclude,
@@ -32,6 +33,7 @@ export class GridComponent implements AfterViewInit {
 	cellsToDissapear: string[] = [];
 	Scores: Score[] = [];
 	islandsNum: number = 0;
+	islands: string[] = [];
 	@ViewChild('container') container: ElementRef = {} as ElementRef;
 	@ViewChild('list', { read: ElementRef }) list: ElementRef =
 		{} as ElementRef;
@@ -39,6 +41,8 @@ export class GridComponent implements AfterViewInit {
 		{} as ElementRef;
 	xAxis: string[] = gridNumbers.slice(0, 10);
 	yAxis: string[] = gridLetters.slice(0, 10);
+	showTimer: boolean = false;
+	eventsSubject: Subject<void> = new Subject<void>();
 
 	constructor(
 		private battleshipService: BattleshipService,
@@ -50,6 +54,16 @@ export class GridComponent implements AfterViewInit {
 		document.documentElement.style.setProperty('--columns', '10');
 		document.documentElement.style.setProperty('--rows', '10');
 		this.cdRef.detectChanges();
+	}
+
+	hideTimer() {
+		this.showTimer = false;
+		this.hideBattleships();
+	}
+
+	emitEventToChild() {
+		this.showTimer = true;
+		this.eventsSubject.next();
 	}
 
 	ParseInt(x: string) {
@@ -83,7 +97,13 @@ export class GridComponent implements AfterViewInit {
 			this.container.nativeElement.children
 		);
 		for (let index = 0; index < this.islandsNum; index++) {
-			this.islandsService.createIsland(this.getEmptyCells(), cells);
+			const islandCell = this.islandsService.createIsland(
+				this.getEmptyCells(),
+				cells
+			);
+			if (islandCell) {
+				this.islands.push(islandCell);
+			}
 		}
 	}
 
@@ -183,7 +203,7 @@ export class GridComponent implements AfterViewInit {
 			this.bombedBattleships.push(cell.id);
 			cell.setAttribute('aria-label', `${cell.id} Battleship`);
 			this.checkBombedShip(cell.id);
-		} else if (cell.classList.contains('island')) {
+		} else if (this.islands.includes(cell.id)) {
 			cell.classList.add('island-clicked');
 			cell.setAttribute('aria-label', `${cell.id} Island`);
 		} else {
@@ -257,6 +277,7 @@ export class GridComponent implements AfterViewInit {
 			spawnIslands: formInput.spawnIslands,
 			clicksNumber: 0,
 		});
+		this.emitEventToChild();
 		this.newGameModal.nativeElement.style.display = 'none';
 	}
 
@@ -278,6 +299,22 @@ export class GridComponent implements AfterViewInit {
 				grid.columns.toString()
 			);
 		}
+	}
+
+	hideBattleships() {
+		this.cells.forEach((cell) => {
+			cell.classList.remove(
+				'battleship-light',
+				'island',
+				'battleship-horizontal-start',
+				'battleship-horizontal-end',
+				'battleship-vertical-start',
+				'battleship-vertical-end',
+				'battleship-horizontal-middle',
+				'battleship-vertical-middle',
+				'battleship-full'
+			);
+		});
 	}
 
 	openStartModal() {

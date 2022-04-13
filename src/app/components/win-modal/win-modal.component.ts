@@ -16,8 +16,8 @@ import Score from 'src/app/models/Score';
 	styleUrls: ['./win-modal.component.scss'],
 })
 export class ModalComponent implements OnInit, AfterViewInit {
-	@Output() startnewGame = new EventEmitter();
-	@Output() resetScores = new EventEmitter();
+	@Output() startnewGame: EventEmitter<void> = new EventEmitter();
+	@Output() resetScores: EventEmitter<void> = new EventEmitter();
 	@ViewChild('winModal') winModal: ElementRef = {} as ElementRef;
 	@Input() scores: Score[] = [];
 

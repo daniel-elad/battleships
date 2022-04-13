@@ -9,6 +9,7 @@ import { BattleshipListComponent } from './components/battleship-list/battleship
 import { NewGameModalComponent } from './components/new-game-modal/new-game-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BattleshipDestroyerComponent } from './components/battleship-destroyer/battleship-destroyer.component';
+import { TimerComponent } from './components/timer/timer.component';
 
 @NgModule({
 	declarations: [
@@ -18,6 +19,7 @@ import { BattleshipDestroyerComponent } from './components/battleship-destroyer/
 		BattleshipListComponent,
 		NewGameModalComponent,
   BattleshipDestroyerComponent,
+  TimerComponent,
 	],
 	imports: [
 		BrowserModule,

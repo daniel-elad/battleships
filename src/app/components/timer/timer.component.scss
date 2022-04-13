@@ -1,0 +1,21 @@
+.counter {
+	display: inline-block;
+	margin: 10px auto;
+	color: white;
+	font-size: 50px;
+	background-color: rgba(red, 0.8);
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.background {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(black, 0);
+	z-index: 1;
+	display: flex;
+	justify-content: center;
+}

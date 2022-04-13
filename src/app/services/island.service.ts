@@ -11,5 +11,6 @@ export class IslandService {
 			emptyCells[Math.floor(Math.random() * emptyCells.length)];
 		const cell = cells.find((cell) => cell.id == randomCell);
 		cell?.classList.add('island');
+		return cell?.id;
 	}
 }
