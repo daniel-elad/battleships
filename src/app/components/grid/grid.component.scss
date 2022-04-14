@@ -29,10 +29,7 @@
 .lists-container {
 	display: flex;
 	flex-direction: column;
-}
-
-.battleship-destroyer {
-	margin-bottom: 10px;
+	width: 100%;
 }
 
 .x {
@@ -267,6 +264,10 @@
 }
 
 @media (min-width: $Laptops) {
+	.battleship-destroyer {
+		margin-bottom: 10px;
+	}
+
 	.container {
 		max-width: 70vw;
 		max-height: 92vh;
@@ -300,6 +301,10 @@
 
 	.x {
 		grid-column: 4;
+	}
+
+	.lists-container {
+		width: auto;
 	}
 }
 

@@ -26,15 +26,17 @@
 				id="cellNumber"
 			/>
 		</div>
-		<p class="error" [hidden]="!cellError" aria-live="assertive">
-			The cell is either not found<br />or already got attacked
-		</p>
-		<div class="input-group">
-			<input
-				type="submit"
-				value="Attack"
-				[disabled]="!destroyerForm.valid || cellError"
-			/>
+		<div class="attack-container">
+			<p class="error" [hidden]="!cellError" aria-live="assertive">
+				The cell is either not found<br />or already got attacked
+			</p>
+			<div class="input-group">
+				<input
+					type="submit"
+					value="Attack"
+					[disabled]="!destroyerForm.valid || cellError"
+				/>
+			</div>
 		</div>
 	</form>
 </div>

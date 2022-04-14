@@ -3,24 +3,25 @@
 .container {
 	background-color: $foregroundColor;
 	padding: 10px 20px;
-	border-radius: 15px;
+	border-radius: 15px 15px 0 0;
 }
 
 form {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-end;
 }
 
 .input-group {
 	display: flex;
 	flex-direction: column;
-	margin: 10px 0;
+	margin: 2px;
 }
 
 .input-group input:not([type='submit']) {
-	height: 30px;
-	width: 200px;
+	min-height: 30px;
+	width: 100px;
 	border-radius: 5px;
 	border: 1px solid black;
 	font-size: 16px;
@@ -35,8 +36,8 @@ form {
 }
 
 .input-group input[type='submit'] {
-	height: 30px;
-	width: 200px;
+	min-height: 30px;
+	width: 100px;
 	border-radius: 5px;
 	font-size: 18px;
 	font-weight: bold;
@@ -44,6 +45,7 @@ form {
 	background-color: #c22525;
 	color: white;
 	border: none;
+	width: 100%;
 	cursor: pointer;
 	&:hover {
 		background-color: #8b1010;
@@ -54,6 +56,11 @@ form {
 	}
 }
 
+.attack-container {
+	display: flex;
+	flex-direction: column;
+}
+
 .error {
 	font-size: 10px;
 	text-align: center;
@@ -61,6 +68,10 @@ form {
 }
 
 @media screen and (min-width: $M_Phones) {
+	.error {
+		font-size: 12px;
+	}
+
 	.input-group label {
 		font-size: 18px;
 	}
@@ -71,5 +82,43 @@ form {
 
 	.input-group input:not([type='submit']) {
 		height: 40px;
+	}
+}
+
+@media screen and (min-width: $L_Phones) {
+	.input-group input:not([type='submit']) {
+		width: 150px;
+	}
+
+	.input-group input[type='submit'] {
+		min-width: 150px;
+	}
+}
+
+@media screen and (min-width: $Tablets) {
+	.input-group input:not([type='submit']) {
+		width: 200px;
+	}
+	.input-group input[type='submit'] {
+		min-width: 200px;
+	}
+}
+
+@media screen and (min-width: $Laptops) {
+	.container {
+		border-radius: 15px;
+	}
+
+	form {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.input-group {
+		margin: 10px 0;
+	}
+
+	.input-group label {
+		font-size: 20px;
 	}
 }

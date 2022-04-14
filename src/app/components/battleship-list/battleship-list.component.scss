@@ -4,11 +4,11 @@
 	height: 100%;
 	width: 100%;
 	background-color: $foregroundColor;
-	border-radius: 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin: 0px;
+	border-radius: 0 0 15px 15px;
 }
 
 .list-wrapper {
@@ -27,7 +27,6 @@
 	margin: 0;
 	padding: 5px;
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	margin: 0 auto;
 	gap: 10px;
@@ -47,6 +46,10 @@
 	flex-direction: column;
 }
 
+.list-item-container div {
+	text-align: center;
+}
+
 .battleship-container {
 	flex-wrap: wrap;
 	max-width: 250px;
@@ -62,7 +65,6 @@
 }
 
 .battleship-title {
-	font-size: 14px;
 	margin: 0px;
 	padding: 0px;
 	display: inline;
@@ -74,10 +76,7 @@
 
 @media (min-width: $M_Phones) {
 	.list-item-container {
-		gap: 5px;
-	}
-	.battleship-title {
-		font-size: 20px;
+		gap: 2px;
 	}
 }
 @media (min-width: $Tablets) {
@@ -91,13 +90,18 @@
 	.battleship-container {
 		max-width: 350px;
 	}
+	.battleship-title {
+		font-size: 22px;
+	}
 }
 
 @media (min-width: $Laptops) {
 	.list-container {
 		width: 250px;
+		border-radius: 20px;
 	}
 	.list {
+		flex-direction: column;
 		justify-content: space-around;
 	}
 	.battleship-container {
