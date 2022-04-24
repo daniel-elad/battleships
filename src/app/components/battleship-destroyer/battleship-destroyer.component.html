@@ -34,7 +34,9 @@
 				<input
 					type="submit"
 					value="Attack"
-					[disabled]="!destroyerForm.valid || cellError"
+					[disabled]="
+						!destroyerForm.valid || cellError || disableAttack
+					"
 				/>
 			</div>
 		</div>

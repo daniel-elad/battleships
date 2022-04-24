@@ -26,6 +26,7 @@ export class GridComponent implements AfterViewInit {
 	battleships: string[][] = [];
 	bombedBattleships: string[] = [];
 	isWin: boolean = false;
+	disableAttack: boolean = true;
 	cells: Element[] = [];
 	smallBattleships: number = 0;
 	mediumBattleships: number = 0;
@@ -139,8 +140,8 @@ export class GridComponent implements AfterViewInit {
 				'battleship-full',
 				'invisible'
 			);
-			cell.removeAttribute('disabled');
-			cell.removeAttribute('aria-disabled');
+			// cell.removeAttribute('disabled');
+			// cell.removeAttribute('aria-disabled');
 			cell.setAttribute('aria-label', `${cell.id}`);
 		});
 	}
@@ -268,6 +269,7 @@ export class GridComponent implements AfterViewInit {
 	}
 
 	onStartNewGame(formInput: NewGame) {
+		this.disableAttack = true;
 		this.startNewGame(formInput);
 		this.Scores.push({
 			rows: formInput.rows,
@@ -314,7 +316,10 @@ export class GridComponent implements AfterViewInit {
 				'battleship-vertical-middle',
 				'battleship-full'
 			);
+			cell.removeAttribute('disabled');
+			cell.removeAttribute('aria-disabled');
 		});
+		this.disableAttack = false;
 	}
 
 	openStartModal() {

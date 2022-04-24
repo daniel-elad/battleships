@@ -21,6 +21,7 @@ export class BattleshipDestroyerComponent implements OnInit {
 	});
 
 	@Input() cells: Element[] = [];
+	@Input() disableAttack: boolean = true;
 	@Output() onAttack: EventEmitter<HTMLElement> = new EventEmitter();
 	@ViewChild('letterInput') letterInput: ElementRef = {} as ElementRef;
 	currentCell: HTMLElement | null = null;

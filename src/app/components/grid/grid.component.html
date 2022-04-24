@@ -4,6 +4,7 @@
 			[cells]="cells"
 			class="battleship-destroyer"
 			(onAttack)="onAttack($event)"
+			[disableAttack]="disableAttack"
 		></app-battleship-destroyer>
 		<app-battleship-list
 			#list
@@ -32,6 +33,7 @@
 						[attr.aria-label]="y + x"
 						aria-live="polite"
 						[id]="y + '_' + ParseInt(x)"
+						disabled
 					></button>
 				</ng-container>
 			</div>
