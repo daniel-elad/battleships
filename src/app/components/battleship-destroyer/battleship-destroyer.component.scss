@@ -1,7 +1,14 @@
 @import '../../../variables';
 
+.light {
+	&.container {
+		background-color: white;
+		box-shadow: 0px 0px 10px rgba(black, 0.2);
+	}
+}
+
 .container {
-	background-color: $foregroundColor;
+	background-color: #f5f5f5;
 	padding: 10px 20px;
 	border-radius: 15px 15px 0 0;
 }
@@ -33,6 +40,7 @@ form {
 	font-weight: bold;
 	margin-bottom: 5px;
 	font-size: 14px;
+	color: #333;
 }
 
 .input-group input[type='submit'] {

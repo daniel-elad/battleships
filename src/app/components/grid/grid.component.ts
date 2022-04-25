@@ -3,6 +3,8 @@ import {
 	ChangeDetectorRef,
 	Component,
 	ElementRef,
+	EventEmitter,
+	Output,
 	ViewChild,
 } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -23,6 +25,7 @@ import { RhombusService } from 'src/app/services/rhombus.service';
 	styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent implements AfterViewInit {
+	@Output() updateDarkMode = new EventEmitter();
 	battleships: string[][] = [];
 	bombedBattleships: string[] = [];
 	isWin: boolean = false;
@@ -40,6 +43,8 @@ export class GridComponent implements AfterViewInit {
 		{} as ElementRef;
 	@ViewChild('newGameModal', { read: ElementRef }) newGameModal: ElementRef =
 		{} as ElementRef;
+	@ViewChild('gridContainer', { read: ElementRef })
+	gridContainer: ElementRef = {} as ElementRef;
 	xAxis: string[] = gridNumbers.slice(0, 10);
 	yAxis: string[] = gridLetters.slice(0, 10);
 	showTimer: boolean = false;
@@ -55,6 +60,7 @@ export class GridComponent implements AfterViewInit {
 		document.documentElement.style.setProperty('--columns', '10');
 		document.documentElement.style.setProperty('--rows', '10');
 		this.cdRef.detectChanges();
+		// this.makeLight(this.gridContainer.nativeElement);
 	}
 
 	hideTimer() {
@@ -301,6 +307,10 @@ export class GridComponent implements AfterViewInit {
 				grid.columns.toString()
 			);
 		}
+	}
+
+	updateMode() {
+		this.updateDarkMode.emit();
 	}
 
 	hideBattleships() {

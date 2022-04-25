@@ -1,4 +1,4 @@
-<div class="flex-container">
+<div class="flex-container" #gridContainer>
 	<div class="lists-container">
 		<app-battleship-destroyer
 			[cells]="cells"
@@ -45,6 +45,7 @@
 	(rowsChange)="configGrid($event)"
 	(cellsToDiss)="setCellsToDissapear($event)"
 	(islandsNumber)="setIslandNum($event)"
+	(updateMode)="updateMode()"
 	#newGameModal
 	tabindex="-1"
 ></app-new-game-modal>

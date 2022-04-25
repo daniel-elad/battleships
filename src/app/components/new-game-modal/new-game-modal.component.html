@@ -128,6 +128,17 @@
 					</div>
 				</div>
 				<div class="input-group">
+					<div class="form-control-checkbox">
+						<input
+							id="dark-mode"
+							type="checkbox"
+							(change)="onDarkModeChange()"
+							[checked]="isDarkMode()"
+						/>
+						<label for="dark-mode">Dark mode</label>
+					</div>
+				</div>
+				<div class="input-group">
 					<input
 						id="new-game-submit"
 						type="submit"

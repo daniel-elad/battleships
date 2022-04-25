@@ -32,6 +32,7 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	@Output() rowsChange = new EventEmitter<NewGame>();
 	@Output() cellsToDiss = new EventEmitter<string[]>();
 	@Output() islandsNumber = new EventEmitter<number>();
+	@Output() updateMode = new EventEmitter();
 	cellsToDissapear: string[] = [];
 	islandsNum: number = 0;
 
@@ -46,6 +47,23 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 			? { rhombusError: true }
 			: null;
 	};
+
+	isDarkMode() {
+		if (localStorage.getItem('mode') === 'dark') {
+			return true;
+		}
+
+		return false;
+	}
+
+	onDarkModeChange() {
+		if (localStorage.getItem('mode') === 'dark') {
+			localStorage.setItem('mode', 'light');
+		} else {
+			localStorage.setItem('mode', 'dark');
+		}
+		this.updateMode.emit();
+	}
 
 	formGroup = new FormGroup(
 		{
@@ -78,7 +96,6 @@ export class NewGameModalComponent implements OnInit, AfterViewInit, OnDestroy {
 	setIslandNumber() {
 		let rows = this.formGroup.get('rows')?.value;
 		let cols = this.formGroup.get('columns')?.value;
-		console.log(this.cellsToDissapear);
 		const emptyCellsNum = rows * cols - this.cellsToDissapear.length;
 		this.islandsNum = Math.floor(emptyCellsNum / 10);
 	}
