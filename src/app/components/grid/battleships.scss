@@ -1,0 +1,395 @@
+.battleship-large-left-horizontal-start {
+	background-image: url('/assets/battleship1_3.svg');
+	background-size: 25px;
+	background-position-x: 3px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+}
+.battleship-large-left-horizontal-end {
+	background-image: url('/assets/battleship3_3.svg');
+	background-size: 70px;
+	background-position-x: -44px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+}
+.battleship-large-left-horizontal-middle {
+	background-image: url('/assets/battleship2_3.svg');
+	background-size: 70px;
+	background-position-x: center;
+	background-position-y: center;
+	background-repeat: no-repeat;
+}
+
+.battleship-large-right-horizontal-end {
+	background-image: url('/assets/battleship1_3.svg');
+	background-size: 25px;
+	background-position-x: 3px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: scaleX(-1);
+}
+.battleship-large-right-horizontal-start {
+	background-image: url('/assets/battleship3_3.svg');
+	background-size: 70px;
+	background-position-x: -44px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: scaleX(-1);
+}
+.battleship-large-right-horizontal-middle {
+	background-image: url('/assets/battleship2_3.svg');
+	background-size: 70px;
+	background-position-x: center;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: scaleX(-1);
+}
+.battleship-medium-left-horizontal-start {
+	background-image: url('/assets/battleship2_2.svg');
+	background-size: 50px;
+	background-position-x: 5px;
+	background-position-y: 10px;
+	background-repeat: no-repeat;
+}
+.battleship-medium-left-horizontal-end {
+	background-image: url('/assets/battleship1_2.svg');
+	background-size: 55px;
+	background-position-x: -30px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+}
+
+.battleship-medium-right-horizontal-end {
+	background-image: url('/assets/battleship2_2.svg');
+	background-size: 50px;
+	background-position-x: 5px;
+	background-position-y: 10px;
+	background-repeat: no-repeat;
+	transform: scaleX(-1);
+}
+.battleship-medium-right-horizontal-start {
+	background-image: url('/assets/battleship1_2.svg');
+	background-size: 55px;
+	background-position-x: -30px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: scaleX(-1);
+}
+.battleship-large-top-vertical-start {
+	background-image: url('/assets/battleship1_3.svg');
+	background-size: 25px;
+	background-position-x: 3px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: rotate(90deg);
+}
+.battleship-large-top-vertical-end {
+	background-image: url('/assets/battleship3_3.svg');
+	background-size: 70px;
+	background-position-x: -44px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: rotate(90deg);
+}
+.battleship-large-top-vertical-middle {
+	background-image: url('/assets/battleship2_3.svg');
+	background-size: 70px;
+	background-position-x: center;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: rotate(90deg);
+}
+
+.battleship-large-bottom-vertical-end {
+	background-image: url('/assets/battleship1_3.svg');
+	background-size: 25px;
+	background-position-x: 3px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: rotate(-90deg);
+}
+.battleship-large-bottom-vertical-start {
+	background-image: url('/assets/battleship3_3.svg');
+	background-size: 70px;
+	background-position-x: -44px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: rotate(-90deg);
+}
+.battleship-large-bottom-vertical-middle {
+	background-image: url('/assets/battleship2_3.svg');
+	background-size: 70px;
+	background-position-x: center;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: rotate(-90deg);
+}
+.battleship-medium-top-vertical-start {
+	background-image: url('/assets/battleship2_2.svg');
+	background-size: 50px;
+	background-position-x: 5px;
+	background-position-y: 10px;
+	background-repeat: no-repeat;
+	transform: rotate(90deg);
+}
+.battleship-medium-top-vertical-end {
+	background-image: url('/assets/battleship1_2.svg');
+	background-size: 55px;
+	background-position-x: -30px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: rotate(90deg);
+}
+
+.battleship-medium-bottom-vertical-end {
+	background-image: url('/assets/battleship2_2.svg');
+	background-size: 50px;
+	background-position-x: 5px;
+	background-position-y: 10px;
+	background-repeat: no-repeat;
+	transform: rotate(-90deg);
+}
+.battleship-medium-bottom-vertical-start {
+	background-image: url('/assets/battleship1_2.svg');
+	background-size: 55px;
+	background-position-x: -30px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	transform: rotate(-90deg);
+}
+
+.battleship-full {
+	background-image: url('/assets/battleship1_1.svg');
+	background-position-y: center;
+	background-position-x: center;
+	background-repeat: no-repeat;
+	background-size: 25px;
+}
+
+.battleship-full.top {
+	transform: rotate(90deg);
+}
+
+.battleship-full.bottom {
+	transform: rotate(-90deg);
+}
+
+.battleship-full.right {
+	transform: scaleX(-1);
+}
+
+@media screen and (min-width: $M_Phones) {
+	.battleship-large-right-horizontal-end,
+	.battleship-large-left-horizontal-start {
+		background-size: 34px;
+		background-position-x: 4px;
+		background-position-y: 8px;
+	}
+	.battleship-large-right-horizontal-start,
+	.battleship-large-left-horizontal-end {
+		background-size: 110px;
+		background-position-x: -72px;
+		background-position-y: center;
+	}
+	.battleship-large-right-horizontal-middle,
+	.battleship-large-left-horizontal-middle {
+		background-size: 110px;
+		background-position-x: center;
+		background-position-y: center;
+	}
+
+	.battleship-medium-left-horizontal-start,
+	.battleship-medium-right-horizontal-end {
+		background-size: 70px;
+		background-position-x: 4px;
+		background-position-y: 15px;
+	}
+	.battleship-medium-left-horizontal-end,
+	.battleship-medium-right-horizontal-start {
+		background-size: 100px;
+		background-position-x: -65px;
+		background-position-y: center;
+	}
+
+	.battleship-large-bottom-vertical-end,
+	.battleship-large-top-vertical-start {
+		background-size: 34px;
+		background-position-x: 5px;
+		background-position-y: 3px;
+	}
+	.battleship-large-bottom-vertical-start,
+	.battleship-large-top-vertical-end {
+		background-size: 110px;
+		background-position-x: -72px;
+		background-position-y: 0px;
+	}
+	.battleship-large-bottom-vertical-middle,
+	.battleship-large-top-vertical-middle {
+		background-size: 110px;
+		background-position-x: center;
+		background-position-y: 0px;
+	}
+	.battleship-medium-bottom-vertical-end,
+	.battleship-medium-top-vertical-start {
+		background-size: 65px;
+		background-position-x: 5px;
+		background-position-y: 10px;
+	}
+
+	.battleship-medium-bottom-vertical-start,
+	.battleship-medium-top-vertical-end {
+		background-size: 65px;
+		background-position-x: -30px;
+		background-position-y: 10px;
+	}
+
+	.battleship-full {
+		background-position-y: center;
+		background-position-x: center;
+		background-size: 35px;
+	}
+}
+
+@media screen and (min-width: $Tablets) {
+	.battleship-large-right-horizontal-end,
+	.battleship-large-left-horizontal-start {
+		background-size: 42px;
+		background-position-x: 5px;
+		background-position-y: 10px;
+	}
+	.battleship-large-right-horizontal-start,
+	.battleship-large-left-horizontal-end {
+		background-size: 120px;
+		background-position-x: -76px;
+		background-position-y: center;
+	}
+	.battleship-large-right-horizontal-middle,
+	.battleship-large-left-horizontal-middle {
+		background-size: 130px;
+		background-position-x: center;
+		background-position-y: center;
+	}
+
+	.battleship-medium-left-horizontal-start,
+	.battleship-medium-right-horizontal-end {
+		background-size: 80px;
+		background-position-x: 8px;
+		background-position-y: 16px;
+	}
+	.battleship-medium-left-horizontal-end,
+	.battleship-medium-right-horizontal-start {
+		background-size: 80px;
+		background-position-x: -38px;
+		background-position-y: center;
+	}
+
+	.battleship-large-bottom-vertical-end,
+	.battleship-large-top-vertical-start {
+		background-size: 42px;
+		background-position-x: 5px;
+		background-position-y: 3px;
+	}
+	.battleship-large-bottom-vertical-start,
+	.battleship-large-top-vertical-end {
+		background-size: 120px;
+		background-position-x: -76px;
+		background-position-y: 2px;
+	}
+	.battleship-large-bottom-vertical-middle,
+	.battleship-large-top-vertical-middle {
+		background-size: 130px;
+		background-position-x: center;
+		background-position-y: 2px;
+	}
+	.battleship-medium-bottom-vertical-end,
+	.battleship-medium-top-vertical-start {
+		background-size: 75px;
+		background-position-x: 10px;
+		background-position-y: 10px;
+	}
+
+	.battleship-medium-bottom-vertical-start,
+	.battleship-medium-top-vertical-end {
+		background-size: 75px;
+		background-position-x: -35px;
+		background-position-y: 10px;
+	}
+
+	.battleship-full {
+		background-position-y: center;
+		background-position-x: center;
+		background-size: 42px;
+	}
+}
+
+@media screen and (min-width: $Desktops) {
+	.battleship-large-right-horizontal-end,
+	.battleship-large-left-horizontal-start {
+		background-size: 55px;
+		background-position-x: 5px;
+		background-position-y: 12px;
+	}
+	.battleship-large-right-horizontal-start,
+	.battleship-large-left-horizontal-end {
+		background-size: 180px;
+		background-position-x: -125px;
+		background-position-y: center;
+	}
+	.battleship-large-right-horizontal-middle,
+	.battleship-large-left-horizontal-middle {
+		background-size: 180px;
+		background-position-x: center;
+		background-position-y: center;
+	}
+
+	.battleship-medium-left-horizontal-start,
+	.battleship-medium-right-horizontal-end {
+		background-size: 100px;
+		background-position-x: 10px;
+		background-position-y: 21px;
+	}
+	.battleship-medium-left-horizontal-end,
+	.battleship-medium-right-horizontal-start {
+		background-size: 120px;
+		background-position-x: -65px;
+		background-position-y: center;
+	}
+
+	.battleship-large-bottom-vertical-end,
+	.battleship-large-top-vertical-start {
+		background-size: 55px;
+		background-position-x: 5px;
+		background-position-y: 3px;
+	}
+	.battleship-large-bottom-vertical-start,
+	.battleship-large-top-vertical-end {
+		background-size: 180px;
+		background-position-x: -125px;
+		background-position-y: 0px;
+	}
+	.battleship-large-bottom-vertical-middle,
+	.battleship-large-top-vertical-middle {
+		background-size: 180px;
+		background-position-x: center;
+		background-position-y: 0px;
+	}
+	.battleship-medium-bottom-vertical-end,
+	.battleship-medium-top-vertical-start {
+		background-size: 100px;
+		background-position-x: 10px;
+		background-position-y: 16px;
+	}
+
+	.battleship-medium-bottom-vertical-start,
+	.battleship-medium-top-vertical-end {
+		background-size: 120px;
+		background-position-x: -65px;
+		background-position-y: 12px;
+	}
+
+	.battleship-full {
+		background-position-y: center;
+		background-position-x: center;
+		background-size: 50px;
+	}
+}

@@ -10,44 +10,104 @@ export class BattleshipService {
 	private letters: string[] = gridLetters;
 
 	paintBattleship(battleship: string[], cells: any, isHotizontal: Boolean) {
+		const isFlipped = !!Math.round(Math.random());
 		battleship.forEach((battleshipID, i) => {
 			const element = cells[battleshipID];
 			element?.classList.add('battleship-light');
+			console.log();
 			switch (battleship.length) {
 				case 1:
 					element?.classList.add('battleship-full');
+					const randomNumber = Math.floor(Math.random() * 4);
+					randomNumber === 0
+						? element?.classList.add('right')
+						: randomNumber === 1
+						? element?.classList.add('top')
+						: randomNumber === 2
+						? element?.classList.add('bottom')
+						: null;
 					break;
 				case 2:
-					isHotizontal
+					isHotizontal && !isFlipped
 						? i === 0
 							? element?.classList.add(
-									'battleship-horizontal-start'
+									'battleship-medium-left-horizontal-start'
 							  )
 							: element?.classList.add(
-									'battleship-horizontal-end'
+									'battleship-medium-left-horizontal-end'
 							  )
-						: i === 0
-						? element?.classList.add('battleship-vertical-start')
-						: element?.classList.add('battleship-vertical-end');
-					break;
-				case 3:
-					isHotizontal
+						: isHotizontal && isFlipped
 						? i === 0
 							? element?.classList.add(
-									'battleship-horizontal-start'
+									'battleship-medium-right-horizontal-start'
+							  )
+							: element?.classList.add(
+									'battleship-medium-right-horizontal-end'
+							  )
+						: !isHotizontal && isFlipped
+						? i === 0
+							? element?.classList.add(
+									'battleship-medium-top-vertical-start'
+							  )
+							: element?.classList.add(
+									'battleship-medium-top-vertical-end'
+							  )
+						: i === 0
+						? element?.classList.add(
+								'battleship-medium-bottom-vertical-start'
+						  )
+						: element?.classList.add(
+								'battleship-medium-bottom-vertical-end'
+						  );
+					break;
+				case 3:
+					isHotizontal && !isFlipped
+						? i === 0
+							? element?.classList.add(
+									'battleship-large-left-horizontal-start'
 							  )
 							: i === 1
 							? element?.classList.add(
-									'battleship-horizontal-middle'
+									'battleship-large-left-horizontal-middle'
 							  )
 							: element?.classList.add(
-									'battleship-horizontal-end'
+									'battleship-large-left-horizontal-end'
+							  )
+						: isHotizontal && isFlipped
+						? i === 0
+							? element?.classList.add(
+									'battleship-large-right-horizontal-start'
+							  )
+							: i === 1
+							? element?.classList.add(
+									'battleship-large-right-horizontal-middle'
+							  )
+							: element?.classList.add(
+									'battleship-large-right-horizontal-end'
+							  )
+						: !isHotizontal && !isFlipped
+						? i === 0
+							? element?.classList.add(
+									'battleship-large-bottom-vertical-start'
+							  )
+							: i === 1
+							? element?.classList.add(
+									'battleship-large-bottom-vertical-middle'
+							  )
+							: element?.classList.add(
+									'battleship-large-bottom-vertical-end'
 							  )
 						: i === 0
-						? element?.classList.add('battleship-vertical-start')
+						? element?.classList.add(
+								'battleship-large-top-vertical-start'
+						  )
 						: i === 1
-						? element?.classList.add('battleship-vertical-middle')
-						: element?.classList.add('battleship-vertical-end');
+						? element?.classList.add(
+								'battleship-large-top-vertical-middle'
+						  )
+						: element?.classList.add(
+								'battleship-large-top-vertical-end'
+						  );
 					break;
 				default:
 					break;

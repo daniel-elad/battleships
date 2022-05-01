@@ -1,4 +1,5 @@
 @import '../../../variables.scss';
+@import 'battleships.scss';
 
 @mixin show($bgColor) {
 	background-color: $bgColor;
@@ -173,12 +174,8 @@
 }
 
 .battleship-light {
-	background-color: #ff6b6b;
-	&:hover,
-	&:focus {
-		background-color: rgb(190, 0, 0);
-		// border: none;
-		// outline: none;
+	&:hover {
+		background-color: #777;
 	}
 }
 
@@ -198,36 +195,6 @@
 	&:hover {
 		@include show(rgb(190, 0, 0));
 	}
-}
-
-.battleship-horizontal-start {
-	border: 2px solid #333;
-	border-right: none;
-}
-.battleship-horizontal-end {
-	border: 2px solid #333;
-	border-left: none;
-}
-.battleship-horizontal-middle {
-	border-top: 2px solid #333;
-	border-bottom: 2px solid #333;
-}
-
-.battleship-vertical-start {
-	border: 2px solid #333;
-	border-bottom: none;
-}
-.battleship-vertical-end {
-	border: 2px solid #333;
-	border-top: none;
-}
-.battleship-vertical-middle {
-	border-left: 2px solid #333;
-	border-right: 2px solid #333;
-}
-
-.battleship-full {
-	border: 2px solid #333;
 }
 
 .won {
